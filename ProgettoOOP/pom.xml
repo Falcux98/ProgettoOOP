@@ -12,16 +12,34 @@
 	<artifactId>ProgettoOOP</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProgettoOOP</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Progetto Programmazione ad Ogetti</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+	   <dependency>
+    		<groupId>com.jayway.jsonpath</groupId>
+    		<artifactId>json-path</artifactId>
+    		</dependency>
+		<dependency>
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	    <dependency>
+        <groupId>org.apache.commons</groupId>
+          <artifactId>commons-text</artifactId>
+          <version>1.4</version>
+          </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
 
 		<dependency>

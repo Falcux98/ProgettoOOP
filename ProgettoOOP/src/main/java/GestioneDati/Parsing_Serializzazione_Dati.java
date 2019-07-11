@@ -26,7 +26,7 @@ public class Parsing_Serializzazione_Dati
 				String[] values = linea.split(DELIMITATORE);
 				System.out.println("La lunghezza dell'array e' "+values.length);
 				
-				for(int i=6; i<9; i++)
+				for(int i=0; i<9; i++)
 				{
 					values[i] = values[i].replace(',','.').replace("n.d.", "0");
 				}
