@@ -30,7 +30,7 @@ public class Parsing_Serializzazione_Dati
 				{
 					values[i] = values[i].replace(',','.').replace("n.d.", "0");
 				}
-				v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Float.parseFloat(values[5])));
+				v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Double.parseDouble(values[5])));
 			}
 			b.close();
 			}

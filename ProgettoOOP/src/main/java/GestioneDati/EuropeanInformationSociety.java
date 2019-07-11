@@ -33,8 +33,8 @@ public class EuropeanInformationSociety implements Serializable
 	@Metadati(name="unit_measure", type="String")
 	private String unit_measure;
 	
-	@Metadati(name="value", type="float")
-	private float value;
+	@Metadati(name="value", type="Double")
+	private Double value;
 	
 /* Costruttori di oggetti della classe EuropeanInformationSociety
  * 
@@ -47,7 +47,7 @@ public class EuropeanInformationSociety implements Serializable
  */
 
 	
-public EuropeanInformationSociety(int time_period, String ref_area, String indicator, String breakdown, String unit_measure, float value)
+public EuropeanInformationSociety(int time_period, String ref_area, String indicator, String breakdown, String unit_measure, Double value)
 {
 	super();
 	this.time_period = time_period;
@@ -108,12 +108,12 @@ public void setUnit_measure(String unit_measure)
 	this.unit_measure = unit_measure;
 }
 
-public float getValue()
+public Double getValue()
 {
 	return value;
 }
 
-public void setValue(Float value)
+public void setValue(Double value)
 {
 	this.value = value;
 }
