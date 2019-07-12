@@ -67,5 +67,70 @@ public class Controller
 		
 	}
 	
-	
+	@RequestMapping(value="/statistics", method = RequestMethod.GET)
+	public Object StatisticsRequest(@RequestParam(value="filter",defaultValue="vuoto")String filter,
+			String attribute, String value1,@RequestParam(value="value2", defaultValue="0")String value2)
+	{
+		Vector<Object> attributes = new Vector<Object>();
+		try
+		{
+			Method metodo= EuropeanInformationSociety.class.getMethod("get"+attribute.substring(0,1).toUpperCase()+attribute.substring(1));
+			Vector<EuropeanInformationSociety> v = Lettura.LetturaDati(new File("data file.dat"));
+					if(filter.equals("vuoto"))
+					{
+						for(EuropeanInformationSociety obj: v)
+						{
+							attributes.add(metodo.invoke(obj));
+						}
+					}
+					else
+					{
+						Filtro filtro = new Filtro(filter);
+						if(!filtro.isExist())
+							return "Il filtro usato non esiste!";
+						Vector<EuropeanInformationSociety> vFiltered = (Vector<EuropeanInformationSociety>)filtro.Research(attribute, value1, value2, v);
+						
+						for(EuropeanInformationSociety obj : vFiltered)
+							
+						{
+							attributes.add(metodo.invoke(obj));
+						}
+					}
+		}
+		catch(NoSuchMethodException e)
+		{
+			e.printStackTrace();
+			return "L'attributo inserito non e' valido";
+		}
+		catch(IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+		catch(InvocationTargetException e)
+		{
+			e.printStackTrace();
+		}
+		if(attributes.size()==0)
+			return "Nessun elemento corrispondente a questa richiesta";
+		if(attributes.get(0) instanceof String)
+		{
+			Vector<String> vString = new Vector<String>();
+			for(Object obj : attributes)
+			{
+				String string = (String) obj;
+				vString.add(string);
+			}
+			return Statistiche.getStringStatistiche(vString);
+			}
+		else
+		{
+			Vector<Double> vNumber = new Vector<Double>();
+			for(Object number : attributes)
+				vNumber.add((Double)number);
+			return new NumStatistiche(Statistiche.getAvg(vNumber), 
+					Statistiche.getMin(vNumber), Statistiche.getMax(vNumber),
+					Statistiche.getDevStd(vNumber), Statistiche.getSum(vNumber),
+					vNumber.size());
+		}
+	}
 }
