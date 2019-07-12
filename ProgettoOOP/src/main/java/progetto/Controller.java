@@ -1,5 +1,71 @@
 package progetto;
 
-public class Controller {
+import java.io.*;
+import java.lang.reflect.*;
+import java.util.*;
+import GestioneDati.*;
 
+import org.springframework.web.bind.annotation.*;
+
+
+public class Controller 
+{
+	@RequestMapping(value="/metadata", method=RequestMethod.GET)
+	public Vector<Metadata> MetadataRequest()
+	{
+		return Lettura.LetturaMetadati(new File("metadata file.dat"));
+	}
+	@RequestMapping(value="/data", method = RequestMethod.GET)
+	public Object DataRequest(@RequestParam(value="filter", defaultValue="vuoto")String filter,
+			@RequestParam(value="attribute", defaultValue = "vuoto")String attribute, String value1,
+			@RequestParam(value="value2", defaultValue="0")String value2)
+	{
+		Vector<EuropeanInformationSociety> v = Lettura.LetturaDati(new File ("data file.dat"));
+		if(attribute.equals("vuoto"))
+		{
+			return v;
+		}
+		else
+		{
+			Vector<Metadata> metadata = Lettura.LetturaMetadati(new File("metadata file.dat"));
+			boolean[] checkAttribute = new boolean[metadata.size()];
+			for(int i=0; i<metadata.size(); i++)
+			{
+				if(!attribute.contentEquals(metadata.get(i).getName()))
+				{
+					checkAttribute[i] = true;
+				}
+				else
+				{
+					checkAttribute[i]= false;
+				}
+			}
+			boolean isNotAttribute = true;
+			for(int i=0; i<metadata.size();i++)
+			{
+				isNotAttribute &= checkAttribute[i];
+			}
+			if(isNotAttribute)
+			{
+				return "L'attributo inserito non e' valido";
+			}
+			if(filter.equals("vuoto"))
+				return v;
+			else
+			{
+				Filtro filtro = new Filtro(filter);
+				if(!filtro.isExist())
+					return "Il filtro usato non esiste!";
+				Vector<EuropeanInformationSociety> output= (Vector<EuropeanInformationSociety>)filtro.Research(attribute, value1, value2, v);
+				
+				if(output.size()==0)
+					return "Nessun elemento corrisponde a questa richiesta!";
+				else 
+					return output;
+			}
+		}
+		
+	}
+	
+	
 }
