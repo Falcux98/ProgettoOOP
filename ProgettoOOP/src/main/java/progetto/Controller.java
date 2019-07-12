@@ -67,7 +67,7 @@ public class Controller
 		
 	}
 	
-	@RequestMapping(value="/statistics", method = RequestMethod.GET)
+	@RequestMapping(value="/statistiche", method = RequestMethod.GET)
 	public Object StatisticsRequest(@RequestParam(value="filter",defaultValue="vuoto")String filter,
 			String attribute, String value1,@RequestParam(value="value2", defaultValue="0")String value2)
 	{
