@@ -18,8 +18,8 @@ import java.lang.annotation.*;
 
 public class EuropeanInformationSociety implements Serializable
 {
-	@Metadati(name="time_period", type="int")
-	private Double time_period;
+	@Metadati(name="time_period", type="integer")
+	private Integer time_period;
 	
 	@Metadati(name="ref_area", type="String")
 	private String ref_area;
@@ -33,8 +33,8 @@ public class EuropeanInformationSociety implements Serializable
 	@Metadati(name="unit_measure", type="String")
 	private String unit_measure;
 	
-	@Metadati(name="value", type="Double")
-	private Double value;
+	@Metadati(name="value", type="Float")
+	private Float value;
 	
 /* Costruttori di oggetti della classe EuropeanInformationSociety
  * 
@@ -47,7 +47,7 @@ public class EuropeanInformationSociety implements Serializable
  */
 
 	
-public EuropeanInformationSociety(Double time_period, String ref_area, String indicator, String breakdown, String unit_measure, Double value)
+public EuropeanInformationSociety(Integer time_period, String ref_area, String indicator, String breakdown, String unit_measure, Float value)
 {
 	super();
 	this.time_period = time_period;
@@ -56,14 +56,15 @@ public EuropeanInformationSociety(Double time_period, String ref_area, String in
 	this.breakdown = breakdown;
 	this.unit_measure = unit_measure;
 	this.value = value;
+	
 }
 
 
-public Double getTime_period()
+public Integer getTime_period()
 {
 	return time_period;
 }
-public void setTime_period(Double time_period)
+public void setTime_period(Integer time_period)
 {
 	this.time_period = time_period;
 }
@@ -108,12 +109,12 @@ public void setUnit_measure(String unit_measure)
 	this.unit_measure = unit_measure;
 }
 
-public Double getValue()
+public Float getValue()
 {
 	return value;
 }
 
-public void setValue(Double value)
+public void setValue(Float value)
 {
 	this.value = value;
 }

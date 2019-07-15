@@ -2,7 +2,7 @@ package GestioneDati;
 
 import java.io.*; 
 import java.util.*;
-
+import GestioneDati.EuropeanInformationSociety;
 //Classe che gestisce il parsing e la serializzazione dei dati
 
 public class Parsing_Serializzazione_Dati 
@@ -12,7 +12,7 @@ public class Parsing_Serializzazione_Dati
 		String DELIMITER = "\",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)\"";
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
 		
-		try(BufferedReader br = new BufferedReader(new FileReader("data-set.csv")))			
+		try(BufferedReader br = new BufferedReader(new FileReader("dataset.csv")))			
 		{
 			String linea;
 			int iterazione = 0;
@@ -27,11 +27,14 @@ public class Parsing_Serializzazione_Dati
 				
 				System.out.println("La lunghezza dell'array e' "+values.length);
 				
-				for (int i = 6; i<6; i++)
+				/*for (int i =6 ; i<6; i++)
 				{
 					values[i] = values[i].replace(',','.').replace("n.d.", "0");
-				}
-				v.add(new EuropeanInformationSociety(Double.parseDouble(values[0]), values[1],values[2], values[3], values[4], Double.parseDouble(values[5])));
+				}*/
+				
+				
+				 
+				v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Float.parseFloat(values[5])));
 			}
 			br.close();
 			}
