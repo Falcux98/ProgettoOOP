@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 public class EuropeanInformationSociety implements Serializable
 {
 	@Metadati(name="time_period", type="int")
-	private int time_period;
+	private Double time_period;
 	
 	@Metadati(name="ref_area", type="String")
 	private String ref_area;
@@ -47,7 +47,7 @@ public class EuropeanInformationSociety implements Serializable
  */
 
 	
-public EuropeanInformationSociety(int time_period, String ref_area, String indicator, String breakdown, String unit_measure, Double value)
+public EuropeanInformationSociety(Double time_period, String ref_area, String indicator, String breakdown, String unit_measure, Double value)
 {
 	super();
 	this.time_period = time_period;
@@ -59,11 +59,11 @@ public EuropeanInformationSociety(int time_period, String ref_area, String indic
 }
 
 
-public int getTime_period()
+public Double getTime_period()
 {
 	return time_period;
 }
-public void setTime_period(int time_period)
+public void setTime_period(Double time_period)
 {
 	this.time_period = time_period;
 }
@@ -85,7 +85,7 @@ public String getIndicator()
 
 public void setIndicator(String indicator)
 {
-	this.indicator = indicator;
+	this.indicator= indicator;
 }
 
 public String getBreakdown()

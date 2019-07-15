@@ -1,12 +1,12 @@
 package progetto;
 
-import java.io.*;
+import java.io.*; 
 import java.lang.reflect.*;
 import java.util.*;
 import GestioneDati.*;
 
 import org.springframework.web.bind.annotation.*;
-
+@RestController
 
 public class Controller 
 {
