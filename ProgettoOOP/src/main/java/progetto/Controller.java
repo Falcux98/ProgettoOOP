@@ -6,15 +6,29 @@ import java.util.*;
 import GestioneDati.*;
 
 import org.springframework.web.bind.annotation.*;
-@RestController
+
+/*La classe controller gestisce le varie funzionalità API REST fornite da Spring boot
+ * questa classe implementa i metodi di richiesta dei metadati, dei dati e delle statistiche*/
+ 
+ @RestController
 
 public class Controller 
 {
+	 /**questo metodo serve per la richiesta tramite Get dei metadati.
+	  * @return metadati in formato JSON
+	  */
 	@RequestMapping(value="/metadata", method=RequestMethod.GET)
 	public Vector<Metadata> MetadataRequest()
 	{
 		return Lettura.LetturaMetadati(new File("metadata file.dat"));
 	}
+	/**questo metodo serve per la richiesta tramite Get dei dati secondo  l'eventuale filtro specificato.
+	  * @param filter Filtro specificato nella richiesta, se presente
+	  * @param attribute Attributo su cui viene applicato il filtro
+	  * @param value1 valore primario utilizzato nel filtraggio
+	  * @param value2 Valore secondario utilizzato nel filtraggio(only $or e $bt)
+	  * @return dati in formato JSON (o errori)
+	  */
 	@RequestMapping(value="/data", method = RequestMethod.GET)
 	public Object DataRequest(@RequestParam(value="filter", defaultValue="vuoto")String filter,
 			@RequestParam(value="attribute", defaultValue = "vuoto")String attribute, String value1,
@@ -66,7 +80,15 @@ public class Controller
 		}
 		
 	}
-	
+	/**Metodo per la richiesta tramite GET delle statistiche relativeall'attributo, sia di tipo numerico che di tipo
+	 * String secondo gli eventuali filtri
+	 * @param filter filtro specificato nella richiesta(se presente)
+	 * @param attribute attributo del quale si vuole conoscere le statistiche
+	 * @param value1 valore primario utilizzato nel filtraggio
+	 * @param value2 valore secondario """""(only  $or o $bt)
+	 * @return statistiche sui dati in formatp JSON( o errori)
+	 * 
+	 */
 	@RequestMapping(value="/statistiche", method = RequestMethod.GET)
 	public Object StatisticsRequest(@RequestParam(value="filter",defaultValue="vuoto")String filter,
 			String attribute, String value1,@RequestParam(value="value2", defaultValue="0")String value2)

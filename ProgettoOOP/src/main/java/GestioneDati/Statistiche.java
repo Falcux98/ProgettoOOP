@@ -1,15 +1,28 @@
 package GestioneDati;
 
 import java.util.*;
-
+//Classe che contiene i metodi per calcolare le statistiche sui dati
 public class Statistiche
-{
+{	
+	/**
+	 * Metodo che calcola la media e la restituisce
+	 * @param lista		è un vettore che contiene elementi di tipo Double
+	 * @return avg
+	 */
 	public static double getAvg(Vector<Double> lista)
 	{
 		double avg;
 		avg=(getSum(lista)/lista.size());
 		return avg;
 	}
+	/**
+	 * Metodo che trova il valore minimo e lo restituisce
+	 * 
+	 * @param lista 
+	 * 
+	 * @return min
+	 */
+
 	public static double getMin(Vector<Double> lista)
 	{
 		double min = lista.get(0);
@@ -22,6 +35,14 @@ public class Statistiche
 		}
 		return min;
 	}
+	/**
+	  * Metodo che trova il valore massimo e lo restituisce
+	  * 
+     * @param lista
+     * 
+     * @return max
+     */
+
 public static double getMax(Vector<Double> lista)
 {
 	double max = lista.get(0);
@@ -34,6 +55,14 @@ public static double getMax(Vector<Double> lista)
 	}
 	return max;
 }
+/**
+ * Metodo che calcola la deviazione standard e la restituisce
+ * 
+ * @param lista 
+ * 
+ * @return devStd
+ */
+
 public static double getDevStd(Vector<Double> lista)
 {
 	double avg = getAvg(lista);
@@ -46,6 +75,12 @@ public static double getDevStd(Vector<Double> lista)
 	return devStd;
 }
 
+/**
+ * Metodo che calcola la somma e la restituisce
+ * @param lista
+ * @return sum
+ */
+
 public static double getSum(Vector<Double> lista)
 {
 	double sum=0;
@@ -53,6 +88,12 @@ public static double getSum(Vector<Double> lista)
 		sum+=elemento;
 	return sum;
 }
+/**
+ * Metodo per le statistiche sulle stringhe 
+ * @param str 	vettore di stringhe
+ * @return una lista di oggetti StrStatistic che indicano per ogni stringa le sue ripetizioni
+ */ 
+
 public static Vector<StrStatistiche> getStringStatistiche(Vector<String> str)
 {
 	Vector<StrStatistiche> stringStat = new Vector<StrStatistiche>();
@@ -62,16 +103,18 @@ public static Vector<StrStatistiche> getStringStatistiche(Vector<String> str)
 	Boolean flagPresenza = null;
 	for(int i=0; i <str.size(); i++)
 	{
+		//utilizza metodo size di Vector
 		flagPresenza = false;
-		stringa = str.get(i);
+		stringa = str.get(i);//utilizza metodo get di Vector
 		ripSupporto = 1;
 		
 		for(int j=0; j<stringStat.size() && !flagPresenza;j++)
-			if(stringa.equals(stringStat.get(j).getStringa()))
+			if(stringa.equals(stringStat.get(j).getStringa())) //confronta stringa con il campo dell'elemento j-esimo di stringStat
 			{
 				flagPresenza = true;
 				ripSupporto= stringStat.get(j).getRip()+1;
 				supporto = new StrStatistiche(stringa,ripSupporto);
+				//in posizione j di stringStat mette l'oggetto supporto
 				stringStat.set(j, supporto);
 			}
 	}

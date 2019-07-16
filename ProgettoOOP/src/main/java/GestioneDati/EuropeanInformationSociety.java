@@ -33,10 +33,10 @@ public class EuropeanInformationSociety implements Serializable
 	@Metadati(name="unit_measure", type="String")
 	private String unit_measure;
 	
-	@Metadati(name="value", type="Float")
-	private Float value;
+	@Metadati(name="value", type="Double")
+	private Double value;
 	
-/* Costruttori di oggetti della classe EuropeanInformationSociety
+/** Costruttori di oggetti della classe EuropeanInformationSociety
  * 
  * @param time_period
  * @param ref_area
@@ -47,7 +47,7 @@ public class EuropeanInformationSociety implements Serializable
  */
 
 	
-public EuropeanInformationSociety(Integer time_period, String ref_area, String indicator, String breakdown, String unit_measure, Float value)
+public EuropeanInformationSociety(Integer time_period, String ref_area, String indicator, String breakdown, String unit_measure, Double value)
 {
 	super();
 	this.time_period = time_period;
@@ -59,66 +59,67 @@ public EuropeanInformationSociety(Integer time_period, String ref_area, String i
 	
 }
 
-
+/**@return time_period*/
 public Integer getTime_period()
 {
 	return time_period;
 }
+/**@param time_period*/
 public void setTime_period(Integer time_period)
 {
 	this.time_period = time_period;
 }
-
+/**@return ref_area*/
 public String getRef_area()
 {
 	return ref_area;
 }
-
+/**@param ref_area*/
 public void setRef_area(String ref_area)
 {
 	this.ref_area = ref_area;
 }
-
+/**@return indicator*/
 public String getIndicator()
 {
 	return indicator;
 }
-
+/**@param indicator*/
 public void setIndicator(String indicator)
 {
 	this.indicator= indicator;
 }
-
+/**@return breakdown*/
 public String getBreakdown()
 {
 	return breakdown;
 }
-
+/**@param breakdown*/
 public void setBreakdown(String breakdown)
 {
 	this.breakdown = breakdown;
 }
-
+/**@return unit_measure*/
 public String getUnit_measure()
 {
 	return unit_measure;
 }
-
+/**@param unit_measure*/
 public void setUnit_measure(String unit_measure)
 {
 	this.unit_measure = unit_measure;
 }
-
-public Float getValue()
+/**@return value*/
+public Double getValue()
 {
 	return value;
 }
-
-public void setValue(Float value)
+/**@param value*/
+public void setValue(Double value)
 {
 	this.value = value;
 }
-
+/**@return una stringa che rappresenta l'oggetto*/
 @Override
 public String toString()
 {

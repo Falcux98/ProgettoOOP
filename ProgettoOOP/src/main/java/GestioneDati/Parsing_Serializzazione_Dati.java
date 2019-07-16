@@ -7,8 +7,19 @@ import GestioneDati.EuropeanInformationSociety;
 
 public class Parsing_Serializzazione_Dati 
 {
+	/** Metodo static che si occupa del Parsing dei dati a partire dal file letto.
+	 * @return Vector di oggetti di tipo EuropeanInformationSociety*/
+
 	public static Vector<EuropeanInformationSociety> getData()
 	{
+		/* 
+		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
+		 * così da non provocare errori visto la presenza di diversi numeri con la virgola
+		 * al posto del punto. Inoltre per fare il parsing di tali numeri con la virgola o
+		 * gli eventuali n.d. è stato utilizzato il metodo replace della classe String per
+		 * rimpiazzare le prime con i punti e i secondi con il valore 0.
+		 */
+
 		String DELIMITER = "\",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)\"";
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
 		
@@ -27,13 +38,13 @@ public class Parsing_Serializzazione_Dati
 				
 				System.out.println("La lunghezza dell'array e' "+values.length);
 				
-				/*for (int i =6 ; i<6; i++)
+				for (int i =6 ; i<6; i++)
 				{
 					values[i] = values[i].replace(',','.').replace("n.d.", "0");
-				}*/
+				}
 				
 				
-				 v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Float.parseFloat(values[5])));
+				 v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Double.parseDouble(values[5])));
 			}
 			br.close();
 			}
@@ -47,6 +58,14 @@ public class Parsing_Serializzazione_Dati
 		}
 		return v;
 	}
+	
+	/**
+	 * Metodo static che si occupa della serializzazione dei dati dal Vector di oggetti di tipo EuropeanInformationSociety
+	 * @param file	File su cui vengono serializzati gli oggetti
+	 * @param data	Vector di EuropeanInformationSociety da dove vengono presi i dati
+	 */
+
+	
 public static void SerializzazioneDati(File file, Vector<EuropeanInformationSociety> data)
 {
 	try 

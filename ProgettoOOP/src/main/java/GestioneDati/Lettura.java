@@ -8,7 +8,10 @@ import java.util.*;
 public class Lettura 
 {
 
-	//il metodo static legge dal file in ingresso gli oggetti di tipo EuropeanInformationSociety
+	/**il metodo static legge dal file in ingresso gli oggetti di tipo EuropeanInformationSociety
+	 * @param file file da cui vengono letti gli oggetti di tipo EuropeanInformationSociety
+	 * @return Vector di oggetti di tipo EuropeanInformationSociety
+	 */
 	
 	public static Vector<EuropeanInformationSociety> LetturaDati(File file)
 	{
@@ -32,7 +35,14 @@ public class Lettura
 	
 		return v;
 	}
-	
+	/**
+	 * Metodo static che legge dal file preso come parametro in ingresso gli oggetti di tipo Metadata.
+	 * 
+	 * @param file	File da cui vengono letti gli oggetti di tipo Metadata
+	 * 
+	 * @return Vector di oggetti di tipo Metadata
+	 */
+
 	public static Vector<Metadata> LetturaMetadati(File file)
 	{
 		Vector<Metadata> v = new Vector<Metadata>();

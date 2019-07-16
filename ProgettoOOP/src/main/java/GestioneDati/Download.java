@@ -16,10 +16,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
+/*Classe che effettua il download del data-set che contiene dati in formato CSV partendo dall'indirizzo fornito
+ * dopo, ovviamente, decodifica del JSON che contiene contiene l'URL per scaricare il file
+ */
 public class Download
 {
-	
+	/*Metodo static che scansione il contenuto dell'URL e decodifica il JSON al suo interno, per acquisire l'URL 
+	 * che serve per scaricare il dataset
+	 */
 	public static void ScanURL() {
+		/* 
+		 * Nel nostro caso particolare verrà cercata l'URL con formato uguale a CSV.
+		 * Viene inoltre gestita l'eccezione nel caso in cui il file sia già presente, poichè scaricato precedentemente, 
+		 * lanciando un messaggio di output a schermo e non riscaricando il file.
+		 */
 	
 		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
 		try {
@@ -66,7 +76,11 @@ public class Download
 			e.printStackTrace();
 		}
 	}
-	
+	/** Metodo static che prende come parametro un URL e un nome di un file per poi andare  copiare il contenuto
+	 * in un file creato al momento
+	 * @param url URL con formato CSV
+	 * @param fileName Nome che avrà il file che conterrà il dataset
+	 */
 	
 	public static void download(String url, String fileName) throws Exception {
 	    try (InputStream in = URI.create(url).toURL().openStream()) {
