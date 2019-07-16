@@ -1,8 +1,9 @@
 package GestioneDati;
 
-import java.io.*; 
+import java.io.*;  
 import java.util.*;
 import GestioneDati.EuropeanInformationSociety;
+
 //Classe che gestisce il parsing e la serializzazione dei dati
 
 public class Parsing_Serializzazione_Dati 
@@ -46,8 +47,11 @@ public class Parsing_Serializzazione_Dati
 				
 				 v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Double.parseDouble(values[5])));
 			}
+			
 			br.close();
 			}
+		
+		
 		catch (IOException i)
 		{
 			i.printStackTrace();
