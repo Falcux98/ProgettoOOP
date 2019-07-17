@@ -1,6 +1,6 @@
 package GestioneDati;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader; 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +15,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+
 
 /*Classe che effettua il download del data-set che contiene dati in formato CSV partendo dall'indirizzo fornito
  * dopo, ovviamente, decodifica del JSON che contiene contiene l'URL per scaricare il file
@@ -51,22 +52,31 @@ public class Download
 			   in.close();
 			 }
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data); 
-			JSONObject objI = (JSONObject) (obj.get("result"));
+			JSONObject objI = (JSONObject)obj.get("result");
 			JSONArray objA = (JSONArray) (objI.get("resources"));
-			
-			for(Object o: objA){
-			    if ( o instanceof JSONObject ) {
-			        JSONObject o1 = (JSONObject)o; 
+			//JSONArray getArray= objI.getJSONArray("resources");
+		//for(Object o: getArray)
+			//for(int i = 3, size=objA.size(); i<size; i++)
+				for(int i = 3; i<objA.size(); i++)
+			{	
+				JSONObject o = (JSONObject)objA.get(i);
+				//o.put("array",getArray);
+				
+			    if ( o instanceof JSONObject )
+			    {
+			        JSONObject o1 = (JSONObject)o;
+			      
 			        String format = (String)o1.get("format");
 			        String urlD = (String)o1.get("url");
+			        
 			        System.out.println(format + " | " + urlD);
 			        if(format.equals("csv")) {
 			        	try {
-			        	download(urlD, "data-set.csv");
+			        	download("url", "dataset.csv");
 			        	} catch (FileAlreadyExistsException e) {
 			        		System.out.println("Il seguente file esiste già");			        		
 			        	}
-			        }
+			        }   
 			    }
 			}
 			System.out.println( "OK" );

@@ -31,7 +31,7 @@ public class ProgettoOppApplication
 		
 		//parsing e serializzazione dei dati
 		Vector<EuropeanInformationSociety> data = Parsing_Serializzazione_Dati.getData();
-		File fileData = new File("data file.dat");
+		File fileData = new File("datafile.dat");
 		try
 		{
 			fileData.createNewFile();
