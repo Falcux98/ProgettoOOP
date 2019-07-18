@@ -1,14 +1,18 @@
 package GestioneDati;
 
-import java.io.BufferedReader; 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.FileAlreadyExistsException;
 
 import org.json.simple.JSONArray;
@@ -37,6 +41,8 @@ public class Download
 			URLConnection openConnection = new URL(url).openConnection();
 			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 			InputStream in = openConnection.getInputStream();
+			 
+
 			
 			 String data = "";
 			 String line = "";
@@ -54,13 +60,12 @@ public class Download
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data); 
 			JSONObject objI = (JSONObject)obj.get("result");
 			JSONArray objA = (JSONArray) (objI.get("resources"));
-			//JSONArray getArray= objI.getJSONArray("resources");
-		//for(Object o: getArray)
-			//for(int i = 3, size=objA.size(); i<size; i++)
-				for(int i = 3; i<objA.size(); i++)
+			int i=3;
+		//for(int i = 3; i<objA.size(); i++)
+			do
 			{	
 				JSONObject o = (JSONObject)objA.get(i);
-				//o.put("array",getArray);
+			
 				
 			    if ( o instanceof JSONObject )
 			    {
@@ -68,18 +73,23 @@ public class Download
 			      
 			        String format = (String)o1.get("format");
 			        String urlD = (String)o1.get("url");
-			        
+			      
 			        System.out.println(format + " | " + urlD);
-			        if(format.equals("csv")) {
-			        	try {
-			        	download("url", "dataset.csv");
-			        	} catch (FileAlreadyExistsException e) {
+			        if(format !=null)
+			        {	System.out.println( "entra nell'if" );
+			        	 try
+			        	 {
+			        		download(urlD, "dataset.csv");
+			        	 }
+			        	catch (FileAlreadyExistsException e)
+			        	{
 			        		System.out.println("Il seguente file esiste già");			        		
 			        	}
-			        }   
+			        } 
 			    }
-			}
-			System.out.println( "OK" );
+		}while(objA.size()==i);
+			System.out.println( "OK" );	
+			
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -92,10 +102,14 @@ public class Download
 	 * @param fileName Nome che avrà il file che conterrà il dataset
 	 */
 	
-	public static void download(String url, String fileName) throws Exception {
-	    try (InputStream in = URI.create(url).toURL().openStream()) {
-	        Files.copy(in, Paths.get(fileName));
+	public static void download(String url, String fileName) throws Exception 
+	{
+		 
+
+	    try(InputStream in =  URI.create(url).toURL().openStream())
+	    {	
+	    Files.copy(in, Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
 	    }
-	}
 	
+}
 }
