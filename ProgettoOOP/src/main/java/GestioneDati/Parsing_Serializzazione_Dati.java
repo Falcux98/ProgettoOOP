@@ -15,13 +15,8 @@ public class Parsing_Serializzazione_Dati
 	{
 		/* 
 		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
-		 * così da non provocare errori visto la presenza di diversi numeri con la virgola
-		 * al posto del punto. Inoltre per fare il parsing di tali numeri con la virgola o
-		 * gli eventuali n.d. è stato utilizzato il metodo replace della classe String per
-		 * rimpiazzare le prime con i punti e i secondi con il valore 0.
+		 * così da non provocare errori 
 		 */
-
-		//String DELIMITER = "\",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)\"";
 		char COMMA_DELIMITER = ',';
 		char APOSTR_DELIMITER = '"';
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
@@ -70,8 +65,7 @@ public class Parsing_Serializzazione_Dati
 			}
 			System.out.printf("delimitatore funzionante\n");
 				
-			 if(values.size() == 100) {  //Salta gli oggetti scritti male all'interno del csv[presenza delimiter != ',']
-                 //e la presenza di numeri con virgola
+			 if(values.size() == 100) {  
 
 
 				 for(int l = 0; l < 100;l++) 
@@ -84,9 +78,7 @@ public class Parsing_Serializzazione_Dati
 			
 			v.add(new EuropeanInformationSociety(Integer.parseInt(values.get(0)),values.get(1), values.get(2), values.get(3), values.get(4), Double.parseDouble(values.get(5))));
 				
-				
-				// v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1],values[2], values[3], values[4], Double.parseDouble(values[5])));
-			
+
 			}
 			}
 			br.close();

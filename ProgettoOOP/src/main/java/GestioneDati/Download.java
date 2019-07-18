@@ -61,7 +61,7 @@ public class Download
 			JSONObject objI = (JSONObject)obj.get("result");
 			JSONArray objA = (JSONArray) (objI.get("resources"));
 			int i=3;
-		//for(int i = 3; i<objA.size(); i++)
+		
 			do
 			{	
 				JSONObject o = (JSONObject)objA.get(i);
