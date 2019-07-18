@@ -63,7 +63,6 @@ public class Parsing_Serializzazione_Dati
 				values.add(supporto);
 			}
 			}
-			System.out.printf("delimitatore funzionante\n");
 				
 			 if(values.size() == 100) {  
 
