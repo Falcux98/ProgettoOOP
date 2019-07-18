@@ -63,7 +63,7 @@ public class Parsing_Serializzazione_Dati
 				values.add(supporto);
 			}
 			}
-			System.out.printf("delimitatore funzionante\n");
+			
 				
 			 if(values.size() == 100) {  //Salta gli oggetti scritti male all'interno del csv
                  //e la presenza di numeri con virgola
