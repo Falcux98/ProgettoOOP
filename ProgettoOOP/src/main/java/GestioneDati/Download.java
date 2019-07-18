@@ -43,7 +43,6 @@ public class Download
 			InputStream in = openConnection.getInputStream();
 			 
 
-			
 			 String data = "";
 			 String line = "";
 			 try {

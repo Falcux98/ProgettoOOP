@@ -17,7 +17,6 @@ public class Parsing_Serializzazione_Dati
 		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
 		 */
 
-		
 		char COMMA_DELIMITER = ',';
 		char APOSTR_DELIMITER = '"';
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
