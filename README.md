@@ -58,3 +58,7 @@ Quindi l'utente, a seconda del filtro richiesto, dovrà specificare uno o due va
 
 > Nota bene: se si utilizzano filtri per attributi di tipo numerico, non si possono selezionare attributi di tipo String e nel caso del filtro *$bt* il primo valore inserito dovrà essere minore del secondo.
 
+
+
+
+@Falcux98
