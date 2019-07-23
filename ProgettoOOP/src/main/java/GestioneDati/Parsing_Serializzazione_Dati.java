@@ -1,6 +1,6 @@
 package GestioneDati;
 
-import java.io.*;  
+import java.io.*;   
 import java.util.*;
 
 //Classe che gestisce il parsing e la serializzazione dei dati
@@ -17,28 +17,29 @@ public class Parsing_Serializzazione_Dati
 		 * così da non provocare errori nel parsing dei dati e metadati
 		 */
 	
+		
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
 		
 		try(BufferedReader br = new BufferedReader(new FileReader("dataset.csv")))			
 		{
 			String linea;
-			int iterazione = 0;
+			int iterazione=0 ;
 			while ((linea =br.readLine()) != null)
 			{
 				if(iterazione==0)
 				{
 					iterazione++;
-					continue;
+					continue;		
 				}
-			
-				String[] values = linea.split("\"\",\""); //"\"\",\""
+				
+				String[] values = linea.split(","); //"\"\",\""
 				 
 				System.out.println("La lunghezza dell'array e' "+values.length);
 				
-				for (int i =5 ; i<5; i++)
+				for (int i =0 ; i<6; i++)
 				{
 					System.out.println("entra nel ciclo");
-					values[i] = values[i].replace(',','.').replace("n.d.", "0");
+					values[i] = values[i].replace(',','.').replace("n.d.", "0").replace("\"","");
 					
 				}
 				

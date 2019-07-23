@@ -60,14 +60,10 @@ public class Download
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data); 
 			JSONObject objI = (JSONObject)obj.get("result");
 			JSONArray objA = (JSONArray) (objI.get("resources"));
-			int i=3;
-		
-			do
-			{	
+		int i=2;
+		do {
 				JSONObject o = (JSONObject)objA.get(i);
-			
-				
-			    if ( o instanceof JSONObject )
+				if ( o instanceof JSONObject )
 			    {
 			        JSONObject o1 = (JSONObject)o;
 			      
@@ -87,7 +83,7 @@ public class Download
 			        	}
 			        } 
 			    }
-		}while(objA.size()==i);
+			}while(objA.size()==i);
 			System.out.println( "OK" );	
 			
 		} catch (IOException | ParseException e) {
