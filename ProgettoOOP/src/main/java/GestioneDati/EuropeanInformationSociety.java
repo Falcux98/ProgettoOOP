@@ -6,34 +6,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.*;
 
 
-@Retention(RetentionPolicy.RUNTIME)
+/*@Retention(RetentionPolicy.RUNTIME)
 @interface Metadati
 {
 	String name();
 	String type();
 }
-
+*/
 //classe utile per modellare le righe nel file CSV
 
 
 public class EuropeanInformationSociety implements Serializable
 {
-	@Metadati(name="time_period", type="integer")
+	
 	private Integer time_period;
-	
-	@Metadati(name="ref_area", type="String")
-	private String ref_area;
-	
-	@Metadati(name="indicator", type="String")
-	private String indicator;
-	
-	@Metadati(name="breakdown", type="String")
-	private String breakdown;
-	
-	@Metadati(name="unit_measure", type="String")
-	private String unit_measure;
-	
-	@Metadati(name="value", type="Double")
+	private String ref_area, indicator, breakdown, unit_measure;
 	private Double value;
 	
 /** Costruttori di oggetti della classe EuropeanInformationSociety
@@ -58,6 +45,7 @@ public EuropeanInformationSociety(Integer time_period, String ref_area, String i
 	this.value = value;
 	
 }
+//implementazioni getters e setters
 
 /**@return time_period*/
 public Integer getTime_period()

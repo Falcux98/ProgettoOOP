@@ -1,30 +1,36 @@
 package GestioneDati;
 
-import java.io.*;   
+import java.io.*;
+import java.net.URL;
 import java.util.*;
+import Tool.*;
 
 //Classe che gestisce il parsing e la serializzazione dei dati
 
-public class Parsing_Serializzazione_Dati 
+public class Parsing 
 {
+	public  List<EuropeanInformationSociety> europeanList;
 	/** Metodo static che si occupa del Parsing dei dati a partire dal file letto.
-	 * @return Vector di oggetti di tipo EuropeanInformationSociety*/
+	 * @return List di oggetti di tipo EuropeanInformationSociety*/
 
-	public static Vector<EuropeanInformationSociety> getData()
+	public  List <EuropeanInformationSociety> parsing (String urlD)
 	{
 		/* 
 		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
 		 * così da non provocare errori nel parsing dei dati e metadati
 		 */
 	
-		
-		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("dataset.csv")))			
+		boolean flag1= false, flag2 =false;
+		String linea;
+		int iterazione=0 ;
+		try		
 		{
-			String linea;
-			int iterazione=0 ;
-			while ((linea =br.readLine()) != null)
+			URL urlCsv = new URL (urlD);
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlCsv.openStream()));
+			
+			
+			
+			while (((linea =br.readLine()) != null) && !flag2)
 			{
 				if(iterazione==0)
 				{
@@ -34,7 +40,7 @@ public class Parsing_Serializzazione_Dati
 				
 				String[] values = linea.split(","); //"\"\",\""
 				 
-				System.out.println("La lunghezza dell'array e' "+values.length);
+				//System.out.println("La lunghezza dell'array e' "+values.length);
 				
 				for (int i =0 ; i<6; i++)
 				{
@@ -43,7 +49,7 @@ public class Parsing_Serializzazione_Dati
 					
 				}
 				
-			v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
+			europeanList.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
 				
 
 			}
@@ -56,11 +62,12 @@ public class Parsing_Serializzazione_Dati
 		{
 			i.printStackTrace();
 		}
-		for(EuropeanInformationSociety item: v)
+		System.out.println("Parsing eseguito!\n");
+		for(EuropeanInformationSociety item: europeanList)
 		{
-			System.out.println(v.toString());
+			System.out.println(item);
 		}
-		return v;
+		
 	}
 	
 	/**
@@ -68,21 +75,9 @@ public class Parsing_Serializzazione_Dati
 	 * @param file	File su cui vengono serializzati gli oggetti
 	 * @param data	Vector di EuropeanInformationSociety da dove vengono presi i dati
 	 */
-
 	
-public static void SerializzazioneDati(File file, Vector<EuropeanInformationSociety> data)
-{
-	try 
+	public List<EuropeanInformationSociety> getData()
 	{
-		ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-		output.writeObject(data);
-		output.close();
+		return europeanList;
 	}
-	catch(IOException e)
-	{
-		System.out.println("Errore di I/O! ");
-		e.printStackTrace();
-	}
-}
-	
 }

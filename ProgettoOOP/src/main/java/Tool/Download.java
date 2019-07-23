@@ -26,29 +26,24 @@ import org.json.simple.parser.ParseException;
  */
 public class Download
 {
-	/*Metodo static che scansione il contenuto dell'URL e decodifica il JSON al suo interno, per acquisire l'URL 
+	private String urlD="";
+	/*Metodo  che scansione il contenuto dell'URL e decodifica il JSON al suo interno, per acquisire l'URL 
 	 * che serve per scaricare il dataset
 	 */
-	public static void ScanURL() {
-		/* 
-		 * Nel nostro caso particolare verrà cercata l'URL con formato uguale a CSV.
-		 * Viene inoltre gestita l'eccezione nel caso in cui il file sia già presente, poichè scaricato precedentemente, 
-		 * lanciando un messaggio di output a schermo e non riscaricando il file.
-		 */
+	public ScanURL (String url) {
+		
 	
-		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
+		//String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
 		try {
 			URLConnection openConnection = new URL(url).openConnection();
 			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 			InputStream in = openConnection.getInputStream();
 			 
-
-			
-			 String data = "";
-			 String line = "";
+			String data = "";
+			String line = "";
 			 try {
-			   InputStreamReader inR = new InputStreamReader( in );
-			   BufferedReader buf = new BufferedReader(inR);
+			   InputStreamReader inR = new InputStreamReader( in );//leggei i byte e li decodifica
+			   BufferedReader buf = new BufferedReader(inR);//legge un file di testo
 			  
 			   while ( ( line = buf.readLine() ) != null ) {
 				   data+= line;
@@ -68,23 +63,17 @@ public class Download
 			        JSONObject o1 = (JSONObject)o;
 			      
 			        String format = (String)o1.get("format");
-			        String urlD = (String)o1.get("url");
+			        
 			      
-			        System.out.println(format + " | " + urlD);
 			        if(format !=null)
 			        {	System.out.println( "entra nell'if" );
-			        	 try
-			        	 {
-			        		download(urlD, "dataset.csv");
-			        	 }
-			        	catch (FileAlreadyExistsException e)
-			        	{
-			        		System.out.println("Il seguente file esiste già");			        		
-			        	}
+			        	
+			        		urlD = (String)o1.get("url");
+			        
 			        } 
 			    }
 			}while(objA.size()==i);
-			System.out.println( "OK" );	
+			System.out.println( "Download eseguito!" );	
 			
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
@@ -92,20 +81,5 @@ public class Download
 			e.printStackTrace();
 		}
 	}
-	/** Metodo static che prende come parametro un URL e un nome di un file per poi andare  copiare il contenuto
-	 * in un file creato al momento
-	 * @param url URL con formato CSV
-	 * @param fileName Nome che avrà il file che conterrà il dataset
-	 */
 	
-	public static void download(String url, String fileName) throws Exception 
-	{
-		 
-
-	    try(InputStream in =  URI.create(url).toURL().openStream())
-	    {	
-	    Files.copy(in, Paths.get(fileName));
-	    }
-	
-}
 }
