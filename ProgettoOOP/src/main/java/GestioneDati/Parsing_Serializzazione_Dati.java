@@ -16,73 +16,41 @@ public class Parsing_Serializzazione_Dati
 		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
 		 * così da non provocare errori 
 		 */
-		char COMMA_DELIMITER = ',';
-		char APOSTR_DELIMITER = '"';
+	
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
 		
 		try(BufferedReader br = new BufferedReader(new FileReader("dataset.csv")))			
 		{
 			String linea;
-			int iterazione, dim, j, sup;
-			char[] stringaCar;
-			EuropeanInformationSociety obj;
-			String attributi = br.readLine();
-			ArrayList<String> values; 
+			int iterazione = 0;
 			while ((linea =br.readLine()) != null)
 			{
-				iterazione=0;
-				values = new ArrayList<String>();
-			while(iterazione <(linea.length()-1))
-			{
-				String vuoto = null;
-				String supporto;
-				dim=0; j=0; sup=0;
-				if(linea.charAt(iterazione)== COMMA_DELIMITER || linea.charAt(iterazione)== APOSTR_DELIMITER)
+				if(iterazione==0)
 				{
 					iterazione++;
+					continue;
 				}
-			while((linea.charAt(iterazione)!= COMMA_DELIMITER && linea.charAt(iterazione)!= APOSTR_DELIMITER) && iterazione < (linea.length() -1))
-			{
-				iterazione++;
-				dim++;
-			}
-			stringaCar= new char[dim];
-			if(dim==0)
-			{
-				values.add(vuoto);
-			}else
-			{
-				while(j<dim)
-				{
-					sup=(iterazione - dim)+j;
-					stringaCar[j]= linea.charAt(sup);
-					j++;
-				}
-				supporto= new String(stringaCar);
-				values.add(supporto);
-			}
-			}
-				
-			 if(values.size() == 100) {  
-
-
-				 for(int l = 0; l < 100;l++) 
-				 {
-					 if(values.get(l) == null )
-					 {
-						 values.set(l, "0");
-					 }
-				 }
 			
-			v.add(new EuropeanInformationSociety(Integer.parseInt(values.get(0)),values.get(1), values.get(2), values.get(3), values.get(4), Double.parseDouble(values.get(5))));
+				String[] values = linea.split("\"\",\""); //"\"\",\""
+				 
+				System.out.println("La lunghezza dell'array e' "+values.length);
+				
+				for (int i =5 ; i<5; i++)
+				{
+					System.out.println("entra nel ciclo");
+					values[i] = values[i].replace(',','.').replace("n.d.", "0");
+					
+				}
+				
+			v.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
 				
 
 			}
-			}
+		
 			br.close();
 			}
 		
-		
+	
 		catch (IOException i)
 		{
 			i.printStackTrace();
