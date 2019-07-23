@@ -2,7 +2,6 @@ package GestioneDati;
 
 import java.io.*;  
 import java.util.*;
-import GestioneDati.EuropeanInformationSociety;
 
 //Classe che gestisce il parsing e la serializzazione dei dati
 

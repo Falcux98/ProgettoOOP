@@ -1,7 +1,8 @@
-package GestioneDati;
+package Tool;
 
-import java.io.*;
+import java.io.*;  
 import java.util.*;
+import GestioneDati.*;
 
 //Classe che si occupa della lettura dei dati e dei metadati
 

@@ -1,8 +1,9 @@
 package GestioneDati;
 
-import java.io.*;
+import java.io.*;   
 import java.util.*;
 import java.lang.reflect.Field;
+import GestioneDati.*;
 
 //classe che si occupa del parsing e della serializzazione dei metadati.
 

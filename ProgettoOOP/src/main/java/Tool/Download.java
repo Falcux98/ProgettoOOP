@@ -1,4 +1,4 @@
-package GestioneDati;
+package Tool;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -108,7 +108,7 @@ public class Download
 
 	    try(InputStream in =  URI.create(url).toURL().openStream())
 	    {	
-	    Files.copy(in, Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
+	    Files.copy(in, Paths.get(fileName));
 	    }
 	
 }

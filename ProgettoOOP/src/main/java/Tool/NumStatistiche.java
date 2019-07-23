@@ -1,4 +1,4 @@
-package GestioneDati;
+package Tool;
 
 //Classe per instanziare gli oggetti conteneti statistiche numeriche
 public class NumStatistiche 

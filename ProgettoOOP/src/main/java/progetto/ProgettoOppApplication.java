@@ -1,14 +1,14 @@
 package progetto;
 
-import java.io.*; 
+import java.io.*;  
 import java.util.*;
 import org.springframework.boot.SpringApplication;
-import GestioneDati.Download;
+
 import GestioneDati.EuropeanInformationSociety;
 import GestioneDati.Metadata;
 import GestioneDati.Parsing_Serializzazione_Dati;
 import GestioneDati.Parsing_Serializzazione_Metadati;
-
+import Tool.Download;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

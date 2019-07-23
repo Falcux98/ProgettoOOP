@@ -1,4 +1,4 @@
-package GestioneDati;
+package Tool;
 
 import java.util.*;
 //Classe che contiene i metodi per calcolare le statistiche sui dati

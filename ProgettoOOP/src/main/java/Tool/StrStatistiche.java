@@ -1,4 +1,4 @@
-package GestioneDati;
+package Tool;
 
 
  /**Classe per istanziare oggetti contenenti la stringa in questione e il suo numero di ripetizioni*/ 
