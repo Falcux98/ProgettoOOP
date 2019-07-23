@@ -14,7 +14,7 @@ public class Parsing_Serializzazione_Dati
 	{
 		/* 
 		 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
-		 * così da non provocare errori 
+		 * così da non provocare errori nel parsing dei dati e metadati
 		 */
 	
 		Vector<EuropeanInformationSociety> v = new Vector<EuropeanInformationSociety>();
