@@ -1,4 +1,4 @@
-package GestioneDati;
+package progetto.GestioneDati;
 
 import java.io.Serializable; 
 import java.lang.reflect.*;

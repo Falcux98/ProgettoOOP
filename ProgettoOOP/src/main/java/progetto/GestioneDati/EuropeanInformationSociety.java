@@ -1,4 +1,4 @@
-package GestioneDati;
+package progetto.GestioneDati;
 
 import java.io.*; 
 import java.lang.annotation.Retention;
@@ -6,13 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.*;
 
 
-/*@Retention(RetentionPolicy.RUNTIME)
-@interface Metadati
-{
-	String name();
-	String type();
-}
-*/
 //classe utile per modellare le righe nel file CSV
 
 

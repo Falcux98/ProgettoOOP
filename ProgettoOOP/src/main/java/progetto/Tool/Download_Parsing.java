@@ -1,6 +1,7 @@
-package Tool;
+package progetto.Tool;
 
-import java.io.BufferedOutputStream;
+
+import java.io.BufferedOutputStream; 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.nio.file.FileAlreadyExistsException;
 
 import org.json.simple.JSONArray;
@@ -20,20 +22,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
+import progetto.GestioneDati.EuropeanInformationSociety;
 
-/*Classe che effettua il download del data-set che contiene dati in formato CSV partendo dall'indirizzo fornito
- * dopo, ovviamente, decodifica del JSON che contiene contiene l'URL per scaricare il file
- */
-public class Download
+public class Download_Parsing 
 {
+	private List<EuropeanInformationSociety> europeanList;
 	private String urlD="";
-	/*Metodo  che scansione il contenuto dell'URL e decodifica il JSON al suo interno, per acquisire l'URL 
-	 * che serve per scaricare il dataset
-	 */
-	public ScanURL (String url) {
+	
+public String dowload(String url)
+{
 		
 	
-		//String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
+		
 		try {
 			URLConnection openConnection = new URL(url).openConnection();
 			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
@@ -80,6 +80,77 @@ public class Download
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return urlD;
 	}
+
+public  List <EuropeanInformationSociety> parsing (String urlD)
+{
+	/* 
+	 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
+	 * così da non provocare errori nel parsing dei dati e metadati
+	 */
+
+	boolean flag1= false, flag2 =false;
+	String linea;
+	int iterazione=0 ;
+	try		
+	{
+		URL urlCsv = new URL (urlD);
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlCsv.openStream()));
+		
+		
+		
+		while (((linea =br.readLine()) != null) && !flag2)
+		{
+			if(iterazione==0)
+			{
+				iterazione++;
+				continue;		
+			}
+			
+			String[] values = linea.split(","); //"\"\",\""
+			 
+			//System.out.println("La lunghezza dell'array e' "+values.length);
+			
+			for (int i =0 ; i<6; i++)
+			{
+				System.out.println("entra nel ciclo");
+				values[i] = values[i].replace(',','.').replace("n.d.", "0").replace("\"","");
+				
+			}
+			
+		europeanList.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
+			
+
+		}
+	
+		br.close();
+		}
+	
+
+	catch (IOException i)
+	{
+		i.printStackTrace();
+	}
+	System.out.println("Parsing eseguito!\n");
+	for(EuropeanInformationSociety item: europeanList)
+	{
+		System.out.println(item);
+	}
+	return europeanList;
 	
 }
+
+/**
+ * Metodo static che si occupa della serializzazione dei dati dal Vector di oggetti di tipo EuropeanInformationSociety
+ * @param file	File su cui vengono serializzati gli oggetti
+ * @param data	Vector di EuropeanInformationSociety da dove vengono presi i dati
+ */
+
+public List<EuropeanInformationSociety> getData()
+{
+	return europeanList;
+}
+}
+
+
