@@ -14,6 +14,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.FileAlreadyExistsException;
 
@@ -26,14 +27,16 @@ import progetto.GestioneDati.EuropeanInformationSociety;
 
 public class Download_Parsing 
 {
-	private List<EuropeanInformationSociety> europeanList;
+	private ArrayList<EuropeanInformationSociety> europeanList;
 	private String urlD="";
 	
-public String dowload(String url)
-{
-		
+	public Download_Parsing() {
+		this.europeanList = new ArrayList<EuropeanInformationSociety>();
+		//this.europeanList = new List<EuropeanInformationSociety>();
+	}
 	
-		
+public String dowload(String url)
+{			
 		try {
 			URLConnection openConnection = new URL(url).openConnection();
 			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
@@ -47,7 +50,7 @@ public String dowload(String url)
 			  
 			   while ( ( line = buf.readLine() ) != null ) {
 				   data+= line;
-				   System.out.println( line );
+				   //System.out.println( line );
 			   }
 			 } finally {
 			   in.close();
@@ -55,26 +58,17 @@ public String dowload(String url)
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data); 
 			JSONObject objI = (JSONObject)obj.get("result");
 			JSONArray objA = (JSONArray) (objI.get("resources"));
-		int i=2;
-		do {
-				JSONObject o = (JSONObject)objA.get(i);
-				if ( o instanceof JSONObject )
-			    {
-			        JSONObject o1 = (JSONObject)o;
-			      
-			        String format = (String)o1.get("format");
-			        
-			      
-			        if(format !=null)
-			        {	System.out.println( "entra nell'if" );
-			        	
-			        		urlD = (String)o1.get("url");
-			        
-			        } 
-			    }
-			}while(objA.size()==i);
-			System.out.println( "Download eseguito!" );	
-			
+			for(Object o: objA){
+			    if ( o instanceof JSONObject ) {
+			        JSONObject o1 = (JSONObject)o; 
+			        String format = (String)o1.get("format");			        
+					if(format !=null && format.equals("http://publications.europa.eu/resource/authority/file-type/CSV"))
+					{	
+						urlD = (String)o1.get("url");					
+						break;				
+					}
+				}
+			}						
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -83,7 +77,7 @@ public String dowload(String url)
 		return urlD;
 	}
 
-public  List <EuropeanInformationSociety> parsing (String urlD)
+public  ArrayList <EuropeanInformationSociety> parsing (String urlD)
 {
 	/* 
 	 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
@@ -96,38 +90,35 @@ public  List <EuropeanInformationSociety> parsing (String urlD)
 	try		
 	{
 		URL urlCsv = new URL (urlD);
-		BufferedReader br = new BufferedReader(new InputStreamReader(urlCsv.openStream()));
-		
-		
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlCsv.openStream()));			
 		while (((linea =br.readLine()) != null) && !flag2)
 		{
-			if(iterazione==0)
-			{
-				iterazione++;
-				continue;		
-			}
-			
-			String[] values = linea.split(","); //"\"\",\""
-			 
-			//System.out.println("La lunghezza dell'array e' "+values.length);
-			
-			for (int i =0 ; i<6; i++)
-			{
-				System.out.println("entra nel ciclo");
-				values[i] = values[i].replace(',','.').replace("n.d.", "0").replace("\"","");
-				
-			}
-			
-		europeanList.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
-			
-
+			try{
+				System.out.println("ZZZ " + linea);
+				if(iterazione==0)
+				{
+					iterazione++;
+					continue;		
+				}
+				linea = linea.replace("\"","");
+				String[] values = linea.split(","); //"\"\",\""
+				 
+				//System.out.println("La lunghezza dell'array e' "+values.length);
+				if(values.length == 6){
+					for (int i =0 ; i<values.length; i++)
+					{					
+						values[i] = values[i].replace(',','.').replace("n.d.", "0");	
+					}
+				}
+				europeanList.add(new EuropeanInformationSociety(Integer.parseInt(values[0]), values[1], values[2], values[3], values[4], Double.parseDouble(values[5])));
+			}catch(Exception e){
+				System.out.println(e);
+			}			
 		}
 	
 		br.close();
 		}
 	
-
 	catch (IOException i)
 	{
 		i.printStackTrace();

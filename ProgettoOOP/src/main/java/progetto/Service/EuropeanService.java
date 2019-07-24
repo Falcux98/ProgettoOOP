@@ -22,7 +22,7 @@ public class EuropeanService
 	private Metadata serviceMeta;
 	private Statistiche serviceStat;
 	private Filtro serviceFiltro;
-	private List<EuropeanInformationSociety> lista;
+	private ArrayList<EuropeanInformationSociety> lista;
 	
 	public EuropeanService()
 	{
@@ -42,7 +42,7 @@ public class EuropeanService
 		
 	}
 	
-	public List<EuropeanInformationSociety> getData()
+	public ArrayList<EuropeanInformationSociety> getData()
 	{
 		return this.lista;
 	}
@@ -74,8 +74,8 @@ public class EuropeanService
 		else return map;
 	}
 	
-	public List fieldValues(String fieldName, List list) {
-		List<Object> values = new ArrayList<>();
+	public ArrayList fieldValues(String fieldName, List list) {
+		ArrayList<Object> values = new ArrayList<>();
 		try {
 			Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
 			for(Object e : list) {
@@ -110,7 +110,7 @@ public class EuropeanService
 	 * @param rif valore di riferimento
 	 * @return lista filtrata
 	 */
-	public List<EuropeanInformationSociety> getFilterData(String fieldName, String op, Object rif) {
+	public ArrayList<EuropeanInformationSociety> getFilterData(String fieldName, String op, Object rif) {
 		return this.serviceFiltro.select(getData(), fieldName, op, rif);
 	}
 }

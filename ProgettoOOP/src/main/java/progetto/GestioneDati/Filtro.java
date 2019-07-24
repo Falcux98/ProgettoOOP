@@ -120,8 +120,8 @@ public class Filtro
 	 * @return
 	 */
 	
-	public List<EuropeanInformationSociety> select(List<EuropeanInformationSociety> src, String fieldName, String op, Object rif) {
-		List<EuropeanInformationSociety> list = new ArrayList<EuropeanInformationSociety>();
+	public ArrayList<EuropeanInformationSociety> select(ArrayList<EuropeanInformationSociety> src, String fieldName, String op, Object rif) {
+		ArrayList<EuropeanInformationSociety> list = new ArrayList<EuropeanInformationSociety>();
 		for(EuropeanInformationSociety obj : src) {
 			
 			try {

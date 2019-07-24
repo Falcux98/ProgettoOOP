@@ -21,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 /*La classe controller gestisce le varie funzionalità API REST fornite da Spring boot
  * questa classe implementa i metodi di richiesta dei metadati, dei dati e delle statistiche*/
  
- @RestController
+@RestController
 public class Controller 
 {
 	@Autowired
