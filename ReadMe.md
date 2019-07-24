@@ -110,9 +110,9 @@ value<br></p>
 <h2 id="packaging">Packaging</h2>
 <p>Le classi sono inserite in quattro package principali basati sulla logica MVC (Model View Controller):</p>
 <p><em>Controller</em> racchiude tutti i metodi necessari per far fronte alle richieste GET e POST.</p>
-<p><em>Model</em> contiene la classe principale su cui si basa l’intero programma.</p>
+<p><em>GestioneDati</em> contiene le classi per la gestione dei dati, metadati e filtri.</p>
 <p><em>Service</em> è utile nell’implementazione di metodi che gestiscono l’accesso a dati, metadati, statistiche e filtri.</p>
-<p><em>Utilities</em> include la classe che permette di fare il download e il parsing del file CSV.</p>
+<p><em>Tool</em> include la classe che permette di fare il download e il parsing del file CSV e la classe riguardante le statistiche.</p>
 <p><strong>Falcux98<strong></strong></strong></p>
 <blockquote>
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>
