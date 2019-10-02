@@ -6,17 +6,12 @@ import java.util.*;
 import progetto.GestioneDati.*;
 import progetto.Tool.*;
 import progetto.GestioneDati.EuropeanInformationSociety;
-import progetto.GestioneDati.Filtro;
 import progetto.Service.EuropeanService;
 import progetto.Service.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-
-
 
 /**La classe controller gestisce le varie funzionalità API REST fornite da Spring boot
  * questa classe implementa i metodi di richiesta dei metadati, dei dati e delle statistiche*/
@@ -33,41 +28,43 @@ public class Controller
 		this.service = service;
 	}
 	/**
-     * Metodo che gestisce la richiesta GET alla rotta "/data", restituisce l'intero dataset
+     * Questo metodo gestisce la richiesta GET relativa alla richiesta dei dati, "/data", 
+     * si occupa di restituire l'intero dataset
      *
-     * @return lista di tutti gli oggetti del dataset
+     * @return la lista degli oggetti presenti nel dataset
      */
 	 @GetMapping("/data")
 	    public Vector getAllData() {
 	        return service.getData();
 	    }
 	 /**
-	     * Metodo che gestisce la richiesta GET alla rotta "/metadata", restituisce i metadata
+	     * Questo metodo gestisce la richiesta GET relativa alla richiesta dei metadati, "/metadata", 
+	     * si occupa di restituire i metadati presenti nel dataset
 	     *
-	     * @return lista dei metadata
+	     * @return la lista dei metadati presenti nel dataset
 	     */
 	    @GetMapping("/metadata")
 	    public Vector<Map> getMetadata() {
 	        return (Vector<Map>) service.getMetadata();
 	    }
 	    /**
-	     * Metodo che gestisce la richiesta GET alla rotta "/statistiche" e che restituisce le statistiche
-	     * 
-	     * @param fieldName nome del campo del quale si vogliono calcolare le statistiche
+	     * Questo metodo gestisce la richiesta GET relativa alla richiesta delle statistiche,"/statistiche"
+	     * è possibile ottnere le statistiche di un singolo attributo, sia quelle generali del dataset
+	     * @param fieldName attributo del quale si vogliono calcolare le statistiche
 	     * @return lista delle statistiche
 	     */
 	    @GetMapping("/statistiche")
 	    public Vector<Map> getStatistiche(@RequestParam(value = "field", defaultValue = "") String fieldName) {
 	    	Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
 	    	Vector<Map> lista = new Vector<>();
-	    	if(fieldName.equals(""))
-	    	{  // se non viene specificato il campo calcola le statistiche di ogni attributo
+	    	if(fieldName.equals("")) // se non viene specificato nulla, calcolerà le statistiche di ogni attributo
+	    	{  
 	    		for(int i=0; i < fields.length; i++) {
 	    			lista.add(service.getStatistiche(fields[i].getName()));		
 	    		}
 	    		return lista;
 	    	}
-	    	else {  // altrimenti calcola le statistiche del solo campo specificato
+	    	else {  											// altrimenti calcolerà le statistiche del solo attributo richiesto
 	    		lista.add(service.getStatistiche(fieldName));
 	    		return lista;
 	    	}

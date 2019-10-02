@@ -9,14 +9,14 @@ import java.util.*;
 
 public class Metadata implements Serializable
 {	
-	private List<Map> metadata = new Vector<>();
+	private Vector<Map> metadata = new Vector<>();
 	
 	public Metadata()
 	{
 		Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();//estrae gli attributi della classe
 		
 		for(Field f: fields) {
-			Map<String, String> map = new HashMap<>(); //viene inserita la coppia chiave/valore
+			Map<String, String> map = new HashMap<>(); //viene inserita la coppia chiave/valore grazie ad HashMap
 			map.put("name",f.getName());
 			map.put("sourceFiled", f.getName().toUpperCase());
 			map.put("type",f.getType().getSimpleName());
@@ -28,7 +28,7 @@ public class Metadata implements Serializable
 /**Metodo che ritorna la lista di mappe contenente i metadati
  * @return lista dei metadati*/
 
-public List<Map> getMetadata()
+public Vector<Map> getMetadata()
 {
 	return metadata;
 }

@@ -38,7 +38,8 @@ public class DownloadParsing
 		
 	}
 	/**
-	 * Metodo che effettua il download del dataset estraendo il link del csv 
+	 * Questo metodo che effettua il download del dataset estraendo il link del csv 
+	 * attraverso il canale di connesione
 	 * 
 	 * @param url stringa che contiene l'url del dataset assegnatoci
 	 * @return ritorna una stringa contenuta il link urlD del csv
@@ -87,7 +88,8 @@ public String dowload(String url)
 	}
 
 /**
- * Metodo che effettua il parsing del file csv estratto precedentemente col metodo download
+ * Questo metodo che effettua il parsing del file csv estratto precedentemente con il  metodo download
+ * usando un delimitatore per separare i valori presenti nel csv
  * 
  * @param urlD contiene l'url del csv
  * @return lista di oggetti EuropeanInformationSociety con i relativi attributi contenenti i valori del dataset
@@ -147,7 +149,10 @@ public  Vector<EuropeanInformationSociety> parsing (String urlD)
 	
 }
 
-//metodo che restituisce la lista in alternativa al metodo parsing
+/**
+ * metodo che restituisce la lista 
+ * @return europeanList
+ */
 
 public Vector<EuropeanInformationSociety> getData()
 {
