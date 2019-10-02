@@ -108,16 +108,16 @@ public static Map<Object, Integer> ElementiUnici(List lista) {
  * @param lista fornisce i valori con i quali si possono calcolare tutte le statistiche
  * @return map che contiene come chiavi il nome della statistica e come valore quello calcolato tramite i metodi della classe
  */
-public static Map<String, Object> NumStats(String campo, List<Number> lista) {
-	Map<String, Object> mappa = new HashMap<>();  //crea una mappa che contiene le chiavi e i valori delle statistiche numeriche
-	mappa.put("field", campo);
-	mappa.put("count", count(lista));
-	mappa.put("sum", sum(lista));
-	mappa.put("avg", avg(lista));
-    mappa.put("max", max(lista));
-    mappa.put("min", min(lista));
-    mappa.put("DevStd", devStd(lista));
-    return mappa;
+public static Map<String, Object> NumStatistiche(String campo, List<Number> lista) {
+	Map<String, Object> maps = new HashMap<>();  //crea una mappa che contiene le chiavi e i valori delle statistiche numeriche
+	maps.put("field", campo);
+	maps.put("count", count(lista));
+	maps.put("sum", sum(lista));
+	maps.put("avg", avg(lista));
+    maps.put("max", max(lista));
+    maps.put("min", min(lista));
+    maps.put("DevStd", devStd(lista));
+    return maps;
 }
 
 /**
@@ -126,12 +126,12 @@ public static Map<String, Object> NumStats(String campo, List<Number> lista) {
  * @param lista fornisce i valori con i quali si possono calcolare tutte le statistiche non numeriche
  * @return map che contiene come chiavi il nome della statistica e come valore quello calcolato tramite i metodi della classe
  */
-public static Map<String, Object> StrStats(String campo, List lista) {
-	Map<String, Object> mappa = new HashMap<>();  //crea una mappa che contiene le chiavi e i valori delle statistiche non numeriche
-	mappa.put("field", campo);
-	mappa.put("count", count(lista));
-	mappa.put("elementi unici", ElementiUnici(lista));
-    return mappa;
+public static Map<String, Object> StrStatistiche(String campo, List<Object> lista) {
+	Map<String, Object> maps = new HashMap<>();  //crea una mappa che contiene le chiavi e i valori delle statistiche non numeriche
+	maps.put("field", campo);
+	maps.put("count", count(lista));
+	maps.put("elementi unici", ElementiUnici(lista));
+    return maps;
 }
 
 /**
@@ -142,23 +142,23 @@ public static Map<String, Object> StrStats(String campo, List lista) {
  * @return
  */
 
-public Map<String, Object> getStats(String campo, List<Object> lista) {
-	Map<String, Object> mappa = new HashMap<>();
+public Map<String, Object> getStatistiche(String campo, List<Object> lista) {
+	Map<String, Object> maps = new HashMap<>();
 	if(!lista.isEmpty()) {
 		 // se il primo valore e' un numero crea una lista di numeri e gli passa i valori della lista castati a Number
 		if (lista.get(0) instanceof Number) { 
-			List<Number> numList = new ArrayList<>();
+			List<Number> numLista = new Vector<>();
 			for (Object elem : lista) {
-				numList.add(((Number) elem));
+				numLista.add(((Number) elem));
 			}
-			mappa = NumStats(campo, numList); // calcola le statistiche numeriche
+			maps = NumStatistiche(campo, numLista); // calcola le statistiche numeriche
 		}
 		// se il primo valore non e' un numero calcola le statistiche per le stringhe
 		else {
-			mappa = StrStats(campo, lista);
+			maps = StrStatistiche(campo, lista);
 		}
 	}
-	return mappa;
+	return maps;
 }
 }
 

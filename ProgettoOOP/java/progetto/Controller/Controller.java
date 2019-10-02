@@ -1,6 +1,6 @@
 package progetto.Controller;
 
-import java.io.*;   
+import java.io.*;    
 import java.lang.reflect.*;
 import java.util.*;
 import progetto.GestioneDati.*;
@@ -38,7 +38,7 @@ public class Controller
      * @return lista di tutti gli oggetti del dataset
      */
 	 @GetMapping("/data")
-	    public List getAllData() {
+	    public Vector getAllData() {
 	        return service.getData();
 	    }
 	 /**
@@ -47,8 +47,8 @@ public class Controller
 	     * @return lista dei metadata
 	     */
 	    @GetMapping("/metadata")
-	    public List<Map> getMetadata() {
-	        return service.getMetadata();
+	    public Vector<Map> getMetadata() {
+	        return (Vector<Map>) service.getMetadata();
 	    }
 	    /**
 	     * Metodo che gestisce la richiesta GET alla rotta "/statistiche" e che restituisce le statistiche
@@ -56,55 +56,21 @@ public class Controller
 	     * @param fieldName nome del campo del quale si vogliono calcolare le statistiche
 	     * @return lista delle statistiche
 	     */
-	    @GetMapping("/statische")
-	    public List<Map> getStats(@RequestParam(value = "field", defaultValue = "") String fieldName) {
+	    @GetMapping("/statistiche")
+	    public Vector<Map> getStatistiche(@RequestParam(value = "field", defaultValue = "") String fieldName) {
 	    	Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-	    	List<Map> list = new ArrayList<>();
-	    	if(fieldName.equals("")) {  // se non viene specificato il campo calcola le statistiche di ogni attributo
+	    	Vector<Map> lista = new Vector<>();
+	    	if(fieldName.equals(""))
+	    	{  // se non viene specificato il campo calcola le statistiche di ogni attributo
 	    		for(int i=0; i < fields.length; i++) {
-	    			list.add(service.getStat(fields[i].getName()));		
+	    			lista.add(service.getStatistiche(fields[i].getName()));		
 	    		}
-	    		return list;
+	    		return lista;
 	    	}
 	    	else {  // altrimenti calcola le statistiche del solo campo specificato
-	    		list.add(service.getStat(fieldName));
-	    		return list;
+	    		lista.add(service.getStatistiche(fieldName));
+	    		return lista;
 	    	}
 		}
-	    /**
-	     * Metodo che gestisce la richiesta POST alla rotta "/filtro" e che restituisce i dati filtrati 
-	     * 
-	     * @param req oggetto di tipo Filtro al quale vengono passati i valori del body tramite una chiamata POST
-	     * @return lista dei dati opportunamente filtrati
-	     */
-	    @PostMapping("/data")
-	    public List getFilterData(@RequestBody Filtro req) {
-	    	return service.getFilterData(req.getFieldName(), req.getOp(), req.getRif());
-	    }
-	    
-	    /**
-	     * Metodo che restituisce la richiesta POST alla rotta "/statistiche" e che restituisce le statistiche dei dati filtrati se non si specifica
-	     * il nome del campo, oppure, se lo si specifica, restituisce le statistiche dei dati filtrati solo del campo desiderato
-	     * 
-	     * @param fieldName nome del campo del quale si vogliono calcolare le statistiche
-	     * @param req oggetto di tipo Filtro al quale vengono passati i valori del body tramite una chiamata POST
-	     * @return lista delle statistiche dei dati filtrati
-	     */
-	    @PostMapping("/statistiche")
-	    public List<Map> getFilterStat(@RequestParam(value = "field", defaultValue = "") String fieldName, @RequestBody Filtro req) {
-	    	List<Map> listaStats = new ArrayList<>();
-	    	List listaFiltrata = service.getFilterData(req.getFieldName(), req.getOp(), req.getRif());
-	    	Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-	    	// se non specifico il nome del campo, mi restituisce le statistiche di tutti gli attributi Erasmus dei dati filtrati secondo i parametri passati nel body
-	    	if(fieldName.equals("")) {
-	    		for(int i=0; i < fields.length; i++) {
-	    			listaStats.add(service.getStats(fields[i].getName(), listaFiltrata));		
-	    		}
-	    		return listaStats;
-	    	}
-	    	else {  // altrimenti restituisce solo quelli del parametro specificato
-	    		listaStats.add(service.getStats(fieldName, listaFiltrata));
-	    	}
-			return listaStats;
-	    }
+
 	}

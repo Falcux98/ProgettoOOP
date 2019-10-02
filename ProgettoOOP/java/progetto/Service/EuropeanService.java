@@ -26,9 +26,8 @@ public class EuropeanService
 	private String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
 	private DownloadParsing tools;
 	private Metadata serviceMeta;
-	private Statistiche serviceStat;
-	private Filtro serviceFiltro;
-	private ArrayList<EuropeanInformationSociety> lista;
+	private Statistiche serviceStatistiche;
+	private Vector<EuropeanInformationSociety> lista;
 	
 	/**
 	 * Costruttore che effettua al primo avvio dell'applicazione il download e il parsing dei dati 
@@ -38,8 +37,7 @@ public class EuropeanService
 	{
 		this.tools = new DownloadParsing();
 		this.serviceMeta = new Metadata();
-		this.serviceStat = new Statistiche();
-		this.serviceFiltro = new Filtro();
+		this.serviceStatistiche = new Statistiche();
 		
 		String urlD="";
 		urlD = tools.dowload(url);
@@ -50,7 +48,7 @@ public class EuropeanService
 	 * Metodo che restituisce i metadati del file CSV
 	 * @return la lista contenente i metadati
 	 */
-	public List<Map>getMetadata()
+	public List<Map> getMetadata()
 	{
 		return serviceMeta.getMetadata();
 		
@@ -59,46 +57,28 @@ public class EuropeanService
 	 * Metodo che restituisce i dati del file csv
 	 * @return lista dei dati csv
 	 */
-	public ArrayList<EuropeanInformationSociety> getData()
+	public Vector getData()
 	{
 		return this.lista;
 	}
-	/**
-	 * Metodo che restituisce le statistiche di un dato attributo
-	 * @param nomeCampo contiene il valore dell'attributo del quale si vogliono calcolare le statistiche
-	 * @return map delle statistiche desiderate
-	 */
-	public Map<String, Object> getStat(String nomeCampo)
+	
+	public Map<String, Object> getStatistiche(String nomeCampo) 
 	{
 		Map<String, Object> map = new HashMap<>();
 		Map<String, Object> mapError = new HashMap<>();
-		mapError.put("Errore", "Campo inesistente");
+		mapError.put("ATTEZIONE", "NON VI SONO STATISTICHE SULL'ATTRIBUTO INSERITO");
 		Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-		for (Field f : fields) {
-			if(nomeCampo.equals(f.getName()))
-				map = serviceStat.getStats(nomeCampo, fieldValues(nomeCampo, getData()));
+		for (Field f : fields) 
+		{
+			if(nomeCampo.equalsIgnoreCase(f.getName()))
+				map = serviceStatistiche.getStatistiche(nomeCampo, fieldValues(nomeCampo, getData()));
+			else if(nomeCampo.equalsIgnoreCase(f.getName()))
+				map = serviceStatistiche.getStatistiche(nomeCampo, fieldValues(nomeCampo, lista));
+			
 		}
 		if(map.isEmpty()) return mapError;
-		else return map;
-	}
-	/**
-	 * Metodo che restituisce le statistiche di un dato campo di una lista passatagli come parametro (si utilizza per filtrare le statistiche)
-	 * @param nomeCampo contiene il valore del campo del quale si vogliono calcolare le statistiche
-	 * @param lista contiene la lista dalla quale estrarre poi le statistiche di quel campo
-	 * @return map delle statistiche desiderate (quelle filtrate)
-	 */
-	public Map<String, Object> getStats(String nomeCampo, List lista) 
-	{
-		Map<String, Object> map = new HashMap<>();
-		Map<String, Object> mapError = new HashMap<>();
-		mapError.put("Errore", "Campo inesistente");
-		Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-		for (Field f : fields) {
-			if(nomeCampo.equals(f.getName()))
-				map = serviceStat.getStats(nomeCampo, fieldValues(nomeCampo, lista));
-		}
-		if(map.isEmpty()) return mapError;
-		else return map;
+		else 
+		return map;
 	}
 	/**
 	 * Metodo che estrae i valori di un determinato campo, passato tramite fieldName
@@ -106,14 +86,14 @@ public class EuropeanService
 	 * @param list lista che si ottiene dopo aver effettuato il parsing, array di oggetti "EuropeanInformationSociety"
 	 * @return la lista che contiene i valori di un determinato campo
 	 */
-	public ArrayList fieldValues(String fieldName, List list) {
+	public List fieldValues(String fieldName, List list) {
 		ArrayList<Object> values = new ArrayList<>();
 		try {
 			Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
 			for(Object e : list) {
 				// scorre il vettore di campi e controlla se il nome del campo corrispondente Ã¨ uguale a quello passatogli come parametro 
 				for(int i=0; i < fields.length; i++) {
-					if(fieldName.equals(fields[i].getName())) {
+					if(fieldName.equalsIgnoreCase(fields[i].getName())) {
 						Method m = e.getClass().getMethod("get"+fields[i].getName());
 						Object val = m.invoke(e);
 						values.add(val); // se il controllo restituisce vero, aggiunge alla lista il valore dell'ogetto della lista passatagli come parametro ottenuto con il metodo getMethod
@@ -134,17 +114,6 @@ public class EuropeanService
 		return values;
 	}
 	
-	/**
-	 * Metodo che filtra i dati del csv
-	 * 
-	 * @param fieldName contiene il nome del campo richiesto
-	 * @param op contiene l'operatore che si vuole utilizzare
-	 * @param rif valore di riferimento
-	 * @return lista filtrata
-	 */
-	public ArrayList<EuropeanInformationSociety> getFilterData(String fieldName, String op, Object rif) {
-		return this.serviceFiltro.select(getData(), fieldName, op, rif);
-	}
 }
 	
 	

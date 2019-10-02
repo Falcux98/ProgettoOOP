@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.nio.file.FileAlreadyExistsException;
 
 import org.json.simple.JSONArray;
@@ -29,12 +30,12 @@ import progetto.GestioneDati.EuropeanInformationSociety;
 
 public class DownloadParsing 
 {
-	private ArrayList<EuropeanInformationSociety> europeanList;
+	private Vector<EuropeanInformationSociety> europeanList;
 	private String urlD="";
 	
 	public DownloadParsing() {
-		this.europeanList = new ArrayList<EuropeanInformationSociety>();
-		//this.europeanList = new List<EuropeanInformationSociety>();
+		this.europeanList = new Vector<EuropeanInformationSociety>();
+		
 	}
 	/**
 	 * Metodo che effettua il download del dataset estraendo il link del csv 
@@ -58,7 +59,6 @@ public String dowload(String url)
 			  
 			   while ( ( line = buf.readLine() ) != null ) {
 				   data+= line;
-				   //System.out.println( line );
 			   }
 			 } finally {
 			   in.close();
@@ -82,7 +82,7 @@ public String dowload(String url)
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Download Eseguito!\n");
+		System.out.println("*Download Eseguito!*\n");
 		return urlD;
 	}
 
@@ -93,7 +93,7 @@ public String dowload(String url)
  * @return lista di oggetti EuropeanInformationSociety con i relativi attributi contenenti i valori del dataset
  */
 
-public  ArrayList <EuropeanInformationSociety> parsing (String urlD)
+public  Vector<EuropeanInformationSociety> parsing (String urlD)
 {
 	/* 
 	 * Il delimitatore usato è rappresentato da una virgola racchiusa tra virgolette
@@ -110,16 +110,15 @@ public  ArrayList <EuropeanInformationSociety> parsing (String urlD)
 		while (((linea =br.readLine()) != null) && !flag2)
 		{
 			try{
-				System.out.println("ZZZ " + linea);
+				System.out.println("###" + linea);
 				if(iterazione==0)
 				{
 					iterazione++;
 					continue;		
 				}
 				linea = linea.replace("\"","");
-				String[] values = linea.split(","); //"\"\",\""
+				String[] values = linea.split(",");
 				 
-				//System.out.println("La lunghezza dell'array e' "+values.length);
 				if(values.length == 6){
 					for (int i =0 ; i<values.length; i++)
 					{					
@@ -139,7 +138,7 @@ public  ArrayList <EuropeanInformationSociety> parsing (String urlD)
 	{
 		i.printStackTrace();
 	}
-	System.out.println("Parsing eseguito!\n");
+	System.out.println("*Parsing eseguito!*\n");
 	for(EuropeanInformationSociety item: europeanList)
 	{
 		System.out.println(item);
@@ -150,7 +149,7 @@ public  ArrayList <EuropeanInformationSociety> parsing (String urlD)
 
 //metodo che restituisce la lista in alternativa al metodo parsing
 
-public List<EuropeanInformationSociety> getData()
+public Vector<EuropeanInformationSociety> getData()
 {
 	return europeanList;
 }
