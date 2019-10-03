@@ -27,7 +27,7 @@ ed effettua il parsing del file CSV contenuto nell’<a href="http://data.europa
 <p></p><p>Per ottenere i dati contenuti sul CSV, bisogna scrivere,
 su Postman o sul browser il seguente comando: 
 </p><pre><code>http://localhost:8080/data </code><p></p></pre>
-<img src="https://picasaweb.google.com/117152600055400889215/6743612008475214209#6743612014066909362" width="100" height="100"/> 
+<img src="https://picasaweb.google.com/117152600055400889215/6743612008475214209#6743612014066909362"/> 
 <p></p><h3 id="metadati">Metadati</h3>  
 <p>Per i metadati bisogna scrivere:</p>  
 <pre><code>http://localhost:8080/metadata </code><p></p></pre>
