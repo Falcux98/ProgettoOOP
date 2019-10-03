@@ -9,11 +9,11 @@
 <h1 id="utilizzo-del-software">Utilizzo</h1>
 <h2 id="come-eseguire-l'applicazione">Come eseguire l'applicazione</h2>
 <p>Per compilare il progetto bisogna recarsi nella cartella dove è presente il file "mvn" e aprire il terminale e digitare:
-</p><p></p><pre><code>mvn -am package
-</code><p>Bisogna spostarsi nella directory /target
-</p><p></p><pre><code>cd target
-</code><p></p><pre><code>java -jar ProgettoOOP-0.0.1-SNAPSHOT.jar
-</code><p></p><p>
+</p><p></p><pre><code>mvn -am package</code></pre>
+<p></p><p>Bisogna spostarsi nella directory /target
+</p><p></p><pre><code>cd target</code></pre>
+<p></p><p></p><pre><code>java -jar ProgettoOOP-0.0.1-SNAPSHOT.jar</code></pre>
+<p></p><p></p><p>
 L'applicazione apre una connessione con il web-server in locale 
 sulla porta tcp 8080, dedicata allo scambio di informazioni
 tramite protocollo HTTP.
@@ -26,24 +26,21 @@ ed effettua il parsing del file CSV contenuto nell’<a href="http://data.europa
 </p><h2 id="dati">Dati</h2>  
 <p></p><p>Per ottenere i dati contenuti sul CSV, bisogna scrivere,
 su Postman o sul browser il seguente comando: 
-</p><pre><code>http://localhost:8080/data </code><p>
-(https://picasaweb.google.com/117152600055400889215/6743612008475214209#6743612014066909362 "data")
-</p></pre><p></p></pre><p></p></pre><p></p></pre><p></p><p></p>
-<h3 id="metadati">Metadati</h3>  
+</p><pre><code>http://localhost:8080/data </code><p></p></pre>
+https://picasaweb.google.com/117152600055400889215/6743612008475214209#6743612014066909362 "data"
+<p></p><h3 id="metadati">Metadati</h3>  
 <p>Per i metadati bisogna scrivere:</p>  
-<pre><code>http://localhost:8080/metadata </code><p>
- (https://picasaweb.google.com/117152600055400889215/6743612576054227681#6743612573724979970)
-</p></pre>  
+<pre><code>http://localhost:8080/metadata </code><p></p></pre>
+ https://picasaweb.google.com/117152600055400889215/6743612576054227681#6743612573724979970  
 <h3 id="statistiche">Statistiche</h3>  
 <p>Per ottenere le statistiche di ogni attributo relativo al dataset, bisogna scrivere:</p>  
-<pre><code>http://localhost:8080/statistiche </code><p>
-(https://picasaweb.google.com/117152600055400889215/6743613075511129265#6743613075438916322)
-</p></pre><p></p>
+<pre><code>http://localhost:8080/statistiche </code><p></p></pre>
+https://picasaweb.google.com/117152600055400889215/6743613075511129265#6743613075438916322
 <p>oppure se volgiamo le statistiche di uno specifico attributo , bisogna specificare nella rotta il campo <em>field</em> nel seguente modo:</p>  
-<pre><code>localhost:8080/stats?field=value </code><p>
-(https://picasaweb.google.com/117152600055400889215/6743613451786695969#6743613450774963362)
-</p><p>Come possiamo notare dall'immagine di esempio, l'applicazione non tiene conto del carattere, quindi non è Case Sensitive
-</p></pre>  
+<pre><code>http://localhost:8080/stats?field=value </code><p>
+https://picasaweb.google.com/117152600055400889215/6743613451786695969#6743613450774963362
+</p><p></p></pre>
+Come possiamo notare dall'immagine di esempio, l'applicazione non tiene conto del carattere, quindi non è Case Sensitive
 <p><em><strong>Gli attributi presenti nel dataset sono:</strong></em><br>  
 </p><p><strong>time_period<br><br>  
 ref_area <br><br>  
