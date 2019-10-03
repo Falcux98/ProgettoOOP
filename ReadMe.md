@@ -27,19 +27,19 @@ ed effettua il parsing del file CSV contenuto nell’<a href="http://data.europa
 <p></p><p>Per ottenere i dati contenuti sul CSV, bisogna scrivere,
 su Postman o sul browser il seguente comando: 
 </p><pre><code>http://localhost:8080/data </code><p></p></pre>
-<img src="https://mega.nz/#!3jYHwIKS"/> 
+![Data](https://mega.nz/#!3jYHwIKS) 
 <p></p><h3 id="metadati">Metadati</h3>  
 <p>Per i metadati bisogna scrivere:</p>  
 <pre><code>http://localhost:8080/metadata </code><p></p></pre>
-<img src="https://mega.nz/#!bjJ3Raqb"/> 
+![Metadata](https://mega.nz/#!bjJ3Raqb)
 <h3 id="statistiche">Statistiche</h3>  
 <p>Per ottenere le statistiche di ogni attributo relativo al dataset, bisogna scrivere:</p>  
 <pre><code>http://localhost:8080/statistiche </code><p></p></pre>
-<img src="https://mega.nz/#!TvZ1XagA"/>
+![Statistiche](https://mega.nz/#!TvZ1XagA)
 <p>oppure se volgiamo le statistiche di uno specifico attributo , bisogna specificare nella rotta il campo <em>field</em> nel seguente modo:</p>  
-<pre><code>http://localhost:8080/stats?field=value </code><p>
-<img src="https://mega.nz/#!OuQRSIzI"/>
-</p><p></p></pre>
+<pre><code>http://localhost:8080/stats?field=value </code></pre>
+![Field](https://mega.nz/#!OuQRSIzI)
+</p><p>
 Come possiamo notare dall'immagine di esempio, l'applicazione non tiene conto del carattere, quindi non è Case Sensitive
 <p><em><strong>Gli attributi presenti nel dataset sono:</strong></em><br>  
 </p><p><strong>time_period<br><br>  
