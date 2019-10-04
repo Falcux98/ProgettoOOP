@@ -56,7 +56,8 @@ value<br></strong></p>
 E la classe che gestisce i metadati, <em>"Metadata",</em></p>  
 <p>-<em>Progetto.Service</em> al suo interno contiene la classe,  <em>"EuropeanService",</em> che mette in collegamento tutte le classi presenti, per gestire al meglio i metadati, i dati e le statistiche</p>
 <p>-<em>Progetto.Tool</em> contiene la classe che permette di fare il download e il parsing del file CSV,  <em>"DownloadParsing",</em> e la classe relativa alle statistiche,  <em>"Statistiche".</em></p>  
-<p><strong>Falcux98<strong></strong></strong></p>  
+<p><strong>Falcux98<strong></strong></strong></p>
+<p>Matricola: 1084270<p>
 <blockquote>  
 <p>Written with <a href="https://stackedit.io/">StackEdit</a>.</p>  
 </blockquote>
