@@ -4,87 +4,105 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-
 import org.springframework.stereotype.Service;
 import progetto.GestioneDati.*;
 import progetto.Tool.*;
 import progetto.GestioneDati.EuropeanInformationSociety;
-import progetto.GestioneDati.Filtro;
 import progetto.GestioneDati.Metadata;
-import progetto.Tool.Download_Parsing;
+import progetto.Tool.DownloadParsing;
 import progetto.Tool.Statistiche;
+
+/** La classe Service funge da gestore  ellle operazioni di download e di carica del dataset e mette in collegamento tutte
+ * le classi con il controller attraverso diversi metodi costruiti
+ * @author Diego
+ *
+ */
 
 @Service
 public class EuropeanService 
 {
 	private String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=GIGFgVkEyuzYNvbktE7tAQ";
-	private Download_Parsing tools;
+	private DownloadParsing tools;
 	private Metadata serviceMeta;
-	private Statistiche serviceStat;
-	private Filtro serviceFiltro;
-	private ArrayList<EuropeanInformationSociety> lista;
+	private Statistiche serviceStatistiche;
+	private Vector<EuropeanInformationSociety> lista;
 	
+	/**
+	 * Questo costruttore effettua al primo avvio dell'applicazione, collegandosi in rete, il download e il parsing dei dati 
+	 * per l'estrazione dei valori del file csv 
+	 */
 	public EuropeanService()
 	{
-		this.tools = new Download_Parsing();
+		this.tools = new DownloadParsing();
 		this.serviceMeta = new Metadata();
-		this.serviceStat = new Statistiche();
-		this.serviceFiltro = new Filtro();
+		this.serviceStatistiche = new Statistiche();
 		
 		String urlD="";
 		urlD = tools.dowload(url);
 		lista=tools.parsing(urlD);
 		
 	}
-	public List<Map>getMetadata()
+	/**
+	 * Metodo che restituisce i metadati del file CSV
+	 * @return la lista contenente i metadati
+	 */
+	public Vector<Map> getMetadata()
 	{
 		return serviceMeta.getMetadata();
 		
 	}
-	
-	public ArrayList<EuropeanInformationSociety> getData()
+	/**
+	 * Metodo che restituisce i dati del file csv
+	 * @return lista dei dati csv
+	 */
+	public Vector getData()
 	{
 		return this.lista;
 	}
-	
-	public Map<String, Object> getStat(String nomeCampo)
+	/** questo Metodo gestisce le statistiche, verificando se l'attributo passato è di tipo numerico o string
+	 * verifica se l'attributo è presente
+	 * grazie all'uso del metodo equalsIgnoreCase è possibile inserire nella richiesta dell'attributo sia lettere maiscole che minuscole
+	 * senza creare errori riguardanti Case Sensitive
+	 * @see#nomeCampo.equalsIgnoreCase()
+	 * @param nomeCampo
+	 * @return mappa delle statistiche 
+	 */
+	public Map<String, Object> getStatistiche(String nomeCampo) 
 	{
-		Map<String, Object> map = new HashMap<>();
-		Map<String, Object> mapError = new HashMap<>();
-		mapError.put("Errore", "Campo inesistente");
+		Map<String, Object> mappa = new HashMap<>();
+		Map<String, Object> Errore = new HashMap<>();
+		Errore.put("ATTEZIONE", "NON VI SONO STATISTICHE SULL'ATTRIBUTO INSERITO");
 		Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-		for (Field f : fields) {
-			if(nomeCampo.equals(f.getName()))
-				map = serviceStat.getStats(nomeCampo, fieldValues(nomeCampo, getData()));
+		for (Field f : fields) 
+		{
+			if(nomeCampo.equalsIgnoreCase(f.getName())) 
+				mappa = serviceStatistiche.getStatistiche(nomeCampo, fieldValues(nomeCampo, getData()));
+			else if(nomeCampo.equalsIgnoreCase(f.getName()))
+				mappa = serviceStatistiche.getStatistiche(nomeCampo, fieldValues(nomeCampo, lista));
+			
 		}
-		if(map.isEmpty()) return mapError;
-		else return map;
+		if(mappa.isEmpty()) return Errore;
+		else 
+		return mappa;
 	}
-	public Map<String, Object> getStats(String nomeCampo, List lista) 
-	{
-		Map<String, Object> map = new HashMap<>();
-		Map<String, Object> mapError = new HashMap<>();
-		mapError.put("Errore", "Campo inesistente");
-		Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
-		for (Field f : fields) {
-			if(nomeCampo.equals(f.getName()))
-				map = serviceStat.getStats(nomeCampo, fieldValues(nomeCampo, lista));
-		}
-		if(map.isEmpty()) return mapError;
-		else return map;
-	}
-	
-	public ArrayList fieldValues(String fieldName, List list) {
+	/**
+	 * Questo metodo estrae i valori di un determinato campo, passato tramite fieldName 
+	 * verifica se è presente nel vettore dei campi e se risulta TRUE aggiunge il valore dell'oggetto della lista
+	 * @param fieldName nome del campo del file CSV
+	 * @param list lista che si ottiene dopo aver effettuato il parsing, array di oggetti "EuropeanInformationSociety"
+	 * @return la lista che contiene i valori di un determinato campo
+	 */
+	public List fieldValues(String fieldName, List list) {
 		ArrayList<Object> values = new ArrayList<>();
 		try {
 			Field[] fields = EuropeanInformationSociety.class.getDeclaredFields();
 			for(Object e : list) {
-				// scorre il vettore di campi e controlla se il nome del campo corrispondente Ã¨ uguale a quello passatogli come parametro 
+				// controlla se è presente l'attributo  
 				for(int i=0; i < fields.length; i++) {
-					if(fieldName.equals(fields[i].getName())) {
+					if(fieldName.equalsIgnoreCase(fields[i].getName())) {
 						Method m = e.getClass().getMethod("get"+fields[i].getName());
 						Object val = m.invoke(e);
-						values.add(val); // se il controllo restituisce vero, aggiunge alla lista il valore dell'ogetto della lista passatagli come parametro ottenuto con il metodo getMethod
+						values.add(val); //lo aggiunge alla lista
 					}
 				}
 			}
@@ -102,17 +120,6 @@ public class EuropeanService
 		return values;
 	}
 	
-	/**
-	 * Metodo che filtra i dati del csv
-	 * 
-	 * @param fieldName contiene il nome del campo richiesto
-	 * @param op contiene l'operatore che si vuole utilizzare
-	 * @param rif valore di riferimento
-	 * @return lista filtrata
-	 */
-	public ArrayList<EuropeanInformationSociety> getFilterData(String fieldName, String op, Object rif) {
-		return this.serviceFiltro.select(getData(), fieldName, op, rif);
-	}
 }
 	
 	

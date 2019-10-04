@@ -9,9 +9,9 @@ import java.lang.annotation.*;
 
 public class EuropeanInformationSociety implements Serializable {
 
-	private Integer time_period;
-	private String ref_area, indicator, breakdown, unit_measure;
-	private Double value;
+	private Integer Time_period;
+	private String Ref_area, Indicator, Breakdown, Unit_measure;
+	private Double Value;
 
 	/**
 	 * Costruttori di oggetti della classe EuropeanInformationSociety
@@ -27,81 +27,81 @@ public class EuropeanInformationSociety implements Serializable {
 	public EuropeanInformationSociety(Integer time_period, String ref_area, String indicator, String breakdown,
 			String unit_measure, Double value) {
 		super();
-		this.time_period = time_period;
-		this.ref_area = ref_area;
-		this.indicator = indicator;
-		this.breakdown = breakdown;
-		this.unit_measure = unit_measure;
-		this.value = value;
+		this.Time_period = time_period;
+		this.Ref_area = ref_area;
+		this.Indicator = indicator;
+		this.Breakdown = breakdown;
+		this.Unit_measure = unit_measure;
+		this.Value = value;
 
 	}
 //implementazioni getters e setters
 
 	/** @return time_period */
 	public Integer getTime_period() {
-		return time_period;
+		return Time_period;
 	}
 
 	/** @param time_period */
 	public void setTime_period(Integer time_period) {
-		this.time_period = time_period;
+		this.Time_period = time_period;
 	}
 
 	/** @return ref_area */
 	public String getRef_area() {
-		return ref_area;
+		return Ref_area;
 	}
 
 	/** @param ref_area */
 	public void setRef_area(String ref_area) {
-		this.ref_area = ref_area;
+		this.Ref_area = ref_area;
 	}
 
 	/** @return indicator */
 	public String getIndicator() {
-		return indicator;
+		return Indicator;
 	}
 
 	/** @param indicator */
 	public void setIndicator(String indicator) {
-		this.indicator = indicator;
+		this.Indicator = indicator;
 	}
 
 	/** @return breakdown */
 	public String getBreakdown() {
-		return breakdown;
+		return Breakdown;
 	}
 
 	/** @param breakdown */
 	public void setBreakdown(String breakdown) {
-		this.breakdown = breakdown;
+		this.Breakdown = breakdown;
 	}
 
 	/** @return unit_measure */
 	public String getUnit_measure() {
-		return unit_measure;
+		return Unit_measure;
 	}
 
 	/** @param unit_measure */
 	public void setUnit_measure(String unit_measure) {
-		this.unit_measure = unit_measure;
+		this.Unit_measure = unit_measure;
 	}
 
 	/** @return value */
 	public Double getValue() {
-		return value;
+		return Value;
 	}
 
 	/** @param value */
 	public void setValue(Double value) {
-		this.value = value;
+		this.Value = value;
 	}
 
 	/** @return una stringa che rappresenta l'oggetto */
 	@Override
 	public String toString() {
-		return "EuropeanInformationSociety [time_period=" + time_period + ",ref_area=" + ref_area + ",indicator="
-				+ indicator + ",breakdown=" + breakdown + ",unit_measure=" + unit_measure + ",value=" + value + " ]";
+		return "EuropeanInformationSociety [time_period=" + Time_period + ",ref_area=" + Ref_area + ",indicator="
+				+ Indicator + ",breakdown=" + Breakdown + ",unit_measure=" + Unit_measure + ",value=" + Value + " ]";
 	}
 
 }
