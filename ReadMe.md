@@ -27,18 +27,18 @@ ed effettua il parsing del file CSV contenuto nell’<a href="http://data.europa
 <p></p><p>Per ottenere i dati contenuti sul CSV, bisogna scrivere,
 su Postman o sul browser il seguente comando: 
 </p><pre><code>http://localhost:8080/data </code><p></p></pre>
-<em>Esempio Data:</em>[](https://mega.nz/#!3jYHwIKS!6miiMW_x2yxsjiwE2DO6RxMCaDlJNGDBZO0FG7-WWGQ) 
+![Data](https://mega.nz/#!3jYHwIKS!6miiMW_x2yxsjiwE2DO6RxMCaDlJNGDBZO0FG7-WWGQ) 
 <p></p><h3 id="metadati">Metadati</h3>  
 <p>Per i metadati bisogna scrivere:</p>  
 <pre><code>http://localhost:8080/metadata </code><p></p></pre>
-<em>Esempio Metadata:</em>[](https://mega.nz/#!bjJ3Raqb!JjxkcPznIvRpmqJ59iyXpdCggF1TcYh0M92c7bGUccw)
+![Metadata](https://mega.nz/#!bjJ3Raqb!JjxkcPznIvRpmqJ59iyXpdCggF1TcYh0M92c7bGUccw)
 <h3 id="statistiche">Statistiche</h3>  
 <p>Per ottenere le statistiche di ogni attributo relativo al dataset, bisogna scrivere:</p>  
 <pre><code>http://localhost:8080/statistiche </code><p></p></pre>
-<em>Esempio Statistiche:</em>[](https://mega.nz/#!TvZ1XagA!NmtS5986tXXqyHCb1edJHWrmAzmiMpdkiR-Sreeie98)
+![Statistiche](https://mega.nz/#!TvZ1XagA!NmtS5986tXXqyHCb1edJHWrmAzmiMpdkiR-Sreeie98)
 <p>oppure se volgiamo le statistiche di uno specifico attributo , bisogna specificare nella rotta il campo <em>field</em> nel seguente modo:</p>  
 <pre><code>http://localhost:8080/stats?field=value </code></pre>
-<em>Esempio Field:</em>[](https://mega.nz/#!OuQRSIzI!jTEOnsrTkzuEbuKkm9i8wgIAWH0t0gQKmSIYP_7vgbM)
+![Field](https://mega.nz/#!OuQRSIzI!jTEOnsrTkzuEbuKkm9i8wgIAWH0t0gQKmSIYP_7vgbM)
 </p><p>
 Come possiamo notare dall'immagine di esempio, l'applicazione non tiene conto del carattere, quindi non è Case Sensitive
 <p><em><strong>Gli attributi presenti nel dataset sono:</strong></em><br>  
