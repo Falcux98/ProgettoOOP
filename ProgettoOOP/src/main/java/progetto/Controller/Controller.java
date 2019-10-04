@@ -1,6 +1,6 @@
 package progetto.Controller;
 
-import java.io.*;   
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import progetto.GestioneDati.*;
@@ -20,14 +20,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 /*La classe controller gestisce le varie funzionalità API REST fornite da Spring boot
  * questa classe implementa i metodi di richiesta dei metadati, dei dati e delle statistiche*/
- 
+
 @RestController
-public class Controller 
+public class Controller
 {
 	@Autowired
 	private EuropeanService service;
-	
-	
+
+
 	public Controller(EuropeanService service)
 	{
 		this.service = service;
@@ -52,7 +52,7 @@ public class Controller
 	    }
 	    /**
 	     * Metodo che gestisce la richiesta GET alla rotta "/statistiche" e che restituisce le statistiche
-	     * 
+	     *
 	     * @param fieldName nome del campo del quale si vogliono calcolare le statistiche
 	     * @return lista delle statistiche
 	     */
@@ -62,7 +62,7 @@ public class Controller
 	    	List<Map> list = new ArrayList<>();
 	    	if(fieldName.equals("")) {  // se non viene specificato il campo calcola le statistiche di ogni attributo
 	    		for(int i=0; i < fields.length; i++) {
-	    			list.add(service.getStat(fields[i].getName()));		
+	    			list.add(service.getStat(fields[i].getName()));
 	    		}
 	    		return list;
 	    	}
@@ -72,8 +72,8 @@ public class Controller
 	    	}
 		}
 	    /**
-	     * Metodo che gestisce la richiesta POST alla rotta "/filtro" e che restituisce i dati filtrati 
-	     * 
+	     * Metodo che gestisce la richiesta POST alla rotta "/filtro" e che restituisce i dati filtrati
+	     *
 	     * @param req oggetto di tipo Filtro al quale vengono passati i valori del body tramite una chiamata POST
 	     * @return lista dei dati opportunamente filtrati
 	     */
@@ -81,11 +81,11 @@ public class Controller
 	    public List getFilterData(@RequestBody Filtro req) {
 	    	return service.getFilterData(req.getFieldName(), req.getOp(), req.getRif());
 	    }
-	    
+
 	    /**
 	     * Metodo che restituisce la richiesta POST alla rotta "/statistiche" e che restituisce le statistiche dei dati filtrati se non si specifica
 	     * il nome del campo, oppure, se lo si specifica, restituisce le statistiche dei dati filtrati solo del campo desiderato
-	     * 
+	     *
 	     * @param fieldName nome del campo del quale si vogliono calcolare le statistiche
 	     * @param req oggetto di tipo Filtro al quale vengono passati i valori del body tramite una chiamata POST
 	     * @return lista delle statistiche dei dati filtrati
@@ -98,7 +98,7 @@ public class Controller
 	    	// se non specifico il nome del campo, mi restituisce le statistiche di tutti gli attributi Erasmus dei dati filtrati secondo i parametri passati nel body
 	    	if(fieldName.equals("")) {
 	    		for(int i=0; i < fields.length; i++) {
-	    			listaStats.add(service.getStats(fields[i].getName(), listaFiltrata));		
+	    			listaStats.add(service.getStats(fields[i].getName(), listaFiltrata));
 	    		}
 	    		return listaStats;
 	    	}
